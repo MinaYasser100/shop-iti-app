@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_iti_app/core/api/dio_api.dart';
 
 void main() {
+  DioApi.initDio();
   runApp(const MyApp());
 }
 
