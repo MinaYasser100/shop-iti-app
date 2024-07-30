@@ -6,7 +6,7 @@ class Product {
   String? image;
   String? name;
   String? description;
-  List<String>? images;
+  List<dynamic>? images;
   bool? inFavorites;
   bool? inCart;
 
@@ -31,7 +31,7 @@ class Product {
         image: json['image'] as String?,
         name: json['name'] as String?,
         description: json['description'] as String?,
-        images: json['images'] as List<String>?,
+        images: json['images'] as List<dynamic>?,
         inFavorites: json['in_favorites'] as bool?,
         inCart: json['in_cart'] as bool?,
       );

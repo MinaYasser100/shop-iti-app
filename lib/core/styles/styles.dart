@@ -5,4 +5,9 @@ abstract class Styles {
     fontSize: 30,
     fontWeight: FontWeight.w500,
   );
+
+  static const textStyle20Failure = TextStyle(
+    color: Colors.red,
+    fontSize: 20,
+  );
 }
