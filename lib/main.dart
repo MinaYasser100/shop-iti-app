@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_iti_app/core/api/dio_api.dart';
+import 'package:shop_iti_app/features/layout/presentation/views/layout_view.dart';
 
 void main() {
   DioApi.initDio();
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      home: const LayoutView(),
     );
   }
 }

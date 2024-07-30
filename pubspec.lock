@@ -78,6 +78,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_canvas_woocommerce:
+    dependency: "direct main"
+    description:
+      name: flutter_canvas_woocommerce
+      sha256: c1d20e876360fca0ec29c0bdaaf271cd752aa0354d5e5540bc783511bafa1df3
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -91,6 +99,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      sha256: "275ff26905134bcb59417cf60ad979136f1f8257f2f449914b2c3e05bbb4cd6f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.7.0"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.13.6"
   http_parser:
     dependency: transitive
     description:
