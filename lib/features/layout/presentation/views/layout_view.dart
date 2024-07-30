@@ -1,49 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
 
-import 'func/naviagtion_item_button.dart';
+import 'widgets/layout_widget/bottom_navigation_bar_widget.dart';
 
 class LayoutView extends StatelessWidget {
   const LayoutView({super.key});
-
+  static const List<IconData> icons = [
+    FontAwesomeIcons.shop,
+    FontAwesomeIcons.solidHeart,
+    FontAwesomeIcons.cartShopping,
+  ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Shop App',
-          style: TextStyle(),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(10),
-        height: 80,
-        decoration: const BoxDecoration(
-          color: ConstantComponents.secondColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+    final cubit = context.read<LayoutScreenCubit>();
+    return BlocBuilder<LayoutScreenCubit, LayoutScreenState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: cubit.layoutScreens[cubit.currentIndex],
+          bottomNavigationBar: BottonNavigationBarWidget(
+            icons: icons,
+            cubit: cubit,
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            navigationItemButton(
-              icon: FontAwesomeIcons.shop,
-              onPressed: () {},
-            ),
-            navigationItemButton(
-              icon: FontAwesomeIcons.solidHeart,
-              onPressed: () {},
-            ),
-            navigationItemButton(
-              icon: FontAwesomeIcons.cartShopping,
-              onPressed: () {},
-            ),
-          ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

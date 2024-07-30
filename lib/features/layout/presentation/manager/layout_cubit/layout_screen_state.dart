@@ -4,3 +4,5 @@ part of 'layout_screen_cubit.dart';
 sealed class LayoutScreenState {}
 
 final class LayoutScreenInitial extends LayoutScreenState {}
+
+final class LayoutScreenChangeBodyScreen extends LayoutScreenState {}

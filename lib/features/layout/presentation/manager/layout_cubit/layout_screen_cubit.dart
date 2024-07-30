@@ -9,9 +9,16 @@ part 'layout_screen_state.dart';
 class LayoutScreenCubit extends Cubit<LayoutScreenState> {
   LayoutScreenCubit() : super(LayoutScreenInitial());
 
+  int currentIndex = 0;
+
   List<Widget> layoutScreens = const [
     ShopBodyView(),
     FavoriteBodyView(),
     CartBodyView(),
   ];
+
+  void changeBodyScreen(int index) {
+    currentIndex = index;
+    emit(LayoutScreenChangeBodyScreen());
+  }
 }
