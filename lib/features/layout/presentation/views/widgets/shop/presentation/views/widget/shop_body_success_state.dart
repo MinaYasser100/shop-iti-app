@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/banner_model.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/proudect_model.dart';
 
+import '../func/shop_products_header.dart';
 import 'shop_banners_widget.dart';
 
 class ShopBodySuceessState extends StatelessWidget {
@@ -22,6 +23,9 @@ class ShopBodySuceessState extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: ShopBannersWidget(banners: banners),
+        ),
+        SliverToBoxAdapter(
+          child: shopProductsHeader(),
         ),
       ],
     );

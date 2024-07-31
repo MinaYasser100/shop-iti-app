@@ -23,7 +23,10 @@ Row shopAppBar() {
         ),
         child: IconButton(
           onPressed: () {},
-          icon: const Icon(FontAwesomeIcons.magnifyingGlass),
+          icon: const Icon(
+            FontAwesomeIcons.magnifyingGlass,
+            color: ConstantComponents.firstColor,
+          ),
         ),
       ),
     ],
