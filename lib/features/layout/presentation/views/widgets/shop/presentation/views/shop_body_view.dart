@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/styles/styles.dart';
 
 import '../manager/shop_screen_cubit/shop_screen_cubit.dart';
 import 'widget/shop_body_success_state.dart';
@@ -19,9 +20,12 @@ class ShopBodyView extends StatelessWidget {
             builder: (context, state) {
               if (state is ShopScreenGetShopDataLoading ||
                   context.read<ShopScreenCubit>().proudectsModel == null) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: ConstantComponents.firstColor,
+                return Center(
+                  child: Text(
+                    'Loading...',
+                    style: Styles.textStyle30.copyWith(
+                      color: ConstantComponents.firstColor,
+                    ),
                   ),
                 );
               } else if (state is ShopScreenGetShopDataSuceess &&

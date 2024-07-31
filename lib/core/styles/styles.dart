@@ -22,4 +22,10 @@ abstract class Styles {
     fontWeight: FontWeight.bold,
     color: ConstantComponents.firstColor,
   );
+
+  static const textStyle20White = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
 }
