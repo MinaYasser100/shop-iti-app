@@ -23,7 +23,7 @@ class ShopProductsSliverGridWidget extends StatelessWidget {
           childAspectRatio: 0.63, // Aspect ratio of each item
         ),
         delegate: SliverChildBuilderDelegate(
-          (context, index) => ShopProductWidget(
+          (context, index) => ShopProductsWidget(
             productItemModel: proudectsModel.data!.products![index],
           ),
           childCount: proudectsModel.data!.products!.length,

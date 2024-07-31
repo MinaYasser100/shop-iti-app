@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       ],
       child: GetMaterialApp(
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: ConstantComponents.secondColor,
           colorScheme:
               ColorScheme.fromSeed(seedColor: ConstantComponents.firstColor),
           useMaterial3: true,
