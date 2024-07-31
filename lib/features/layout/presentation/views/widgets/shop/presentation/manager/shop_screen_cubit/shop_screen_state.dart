@@ -7,7 +7,11 @@ final class ShopScreenInitial extends ShopScreenState {}
 
 final class ShopScreenGetShopDataLoading extends ShopScreenState {}
 
-final class ShopScreenGetShopDataSuceess extends ShopScreenState {}
+final class ShopScreenGetShopDataSuceess extends ShopScreenState {
+  final ProudectModel proudectsModel;
+
+  ShopScreenGetShopDataSuceess({required this.proudectsModel});
+}
 
 final class ShopScreenGetShopDataFailure extends ShopScreenState {
   final String errorMessage;

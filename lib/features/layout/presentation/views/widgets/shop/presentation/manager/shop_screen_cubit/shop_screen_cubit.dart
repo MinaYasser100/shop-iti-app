@@ -16,7 +16,7 @@ class ShopScreenCubit extends Cubit<ShopScreenState> {
       Response response = await DioApi.getData(endPoint: DioEndPoint.dioHome);
       if (response.statusCode == 200) {
         proudectsModel = ProudectModel.fromJson(response.data);
-        emit(ShopScreenGetShopDataSuceess());
+        emit(ShopScreenGetShopDataSuceess(proudectsModel: proudectsModel!));
       } else {
         emit(
           ShopScreenGetShopDataErrorResponse(
