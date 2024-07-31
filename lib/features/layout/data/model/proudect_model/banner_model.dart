@@ -1,12 +1,12 @@
-class Banner {
+class BannerModel {
   int? id;
   String? image;
   dynamic category;
   dynamic product;
 
-  Banner({this.id, this.image, this.category, this.product});
+  BannerModel({this.id, this.image, this.category, this.product});
 
-  factory Banner.fromJson(Map<String, dynamic> json) => Banner(
+  factory BannerModel.fromJson(Map<String, dynamic> json) => BannerModel(
         id: json['id'] as int?,
         image: json['image'] as String?,
         category: json['category'] as dynamic,
