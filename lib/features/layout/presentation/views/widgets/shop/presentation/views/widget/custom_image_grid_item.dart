@@ -16,11 +16,14 @@ class CustomImageGridItem extends StatelessWidget {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        Image(
-          width: double.infinity,
-          height: 180,
-          image: NetworkImage(productItemModel.image ?? ''),
-          fit: BoxFit.fill,
+        Hero(
+          tag: 'productImage${productItemModel.id}',
+          child: Image(
+            width: double.infinity,
+            height: 180,
+            image: NetworkImage(productItemModel.image ?? ''),
+            fit: BoxFit.fill,
+          ),
         ),
         if (productItemModel.discount != 0)
           Container(
@@ -29,7 +32,7 @@ class CustomImageGridItem extends StatelessWidget {
             decoration: const BoxDecoration(
               color: ConstantComponents.firstColor,
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30),
+                topRight: Radius.circular(40),
               ),
             ),
             child: const Text(

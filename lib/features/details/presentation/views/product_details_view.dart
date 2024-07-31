@@ -10,6 +10,7 @@ class ProductDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProductItemModel productItemModel = Get.arguments;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: ProductDetailsBodyView(
         productItemModel: productItemModel,
       ),
