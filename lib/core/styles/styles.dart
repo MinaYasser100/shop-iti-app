@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_iti_app/core/constant/constant.dart';
 
 abstract class Styles {
   static const textStyle30 = TextStyle(
@@ -9,5 +10,16 @@ abstract class Styles {
   static const textStyle20Failure = TextStyle(
     color: Colors.red,
     fontSize: 20,
+  );
+
+  static const textStyle24 = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 24,
+  );
+
+  static const textStyle18 = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: ConstantComponents.firstColor,
   );
 }

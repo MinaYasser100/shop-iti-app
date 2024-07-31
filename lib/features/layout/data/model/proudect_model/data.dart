@@ -3,7 +3,7 @@ import 'product.dart';
 
 class Data {
   List<BannerModel>? banners;
-  List<Product>? products;
+  List<ProductItemModel>? products;
   String? ad;
 
   Data({this.banners, this.products, this.ad});
@@ -13,7 +13,7 @@ class Data {
             ?.map((e) => BannerModel.fromJson(e as Map<String, dynamic>))
             .toList(),
         products: (json['products'] as List<dynamic>?)
-            ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => ProductItemModel.fromJson(e as Map<String, dynamic>))
             .toList(),
         ad: json['ad'] as String?,
       );

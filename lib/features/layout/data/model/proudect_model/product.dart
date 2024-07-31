@@ -1,4 +1,4 @@
-class Product {
+class ProductItemModel {
   int? id;
   double? price;
   double? oldPrice;
@@ -10,7 +10,7 @@ class Product {
   bool? inFavorites;
   bool? inCart;
 
-  Product({
+  ProductItemModel({
     this.id,
     this.price,
     this.oldPrice,
@@ -23,7 +23,8 @@ class Product {
     this.inCart,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
+  factory ProductItemModel.fromJson(Map<String, dynamic> json) =>
+      ProductItemModel(
         id: json['id'] as int?,
         price: (json['price'] as num?)?.toDouble(),
         oldPrice: (json['old_price'] as num?)?.toDouble(),

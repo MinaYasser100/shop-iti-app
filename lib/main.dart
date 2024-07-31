@@ -5,6 +5,8 @@ import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/layout_view.dart';
 
+import 'features/layout/presentation/views/widgets/shop/presentation/manager/shop_screen_cubit/shop_screen_cubit.dart';
+
 void main() {
   DioApi.initDio();
   runApp(const MyApp());
@@ -15,8 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LayoutScreenCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LayoutScreenCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ShopScreenCubit()..getShopData(),
+        ),
+      ],
       child: MaterialApp(
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,

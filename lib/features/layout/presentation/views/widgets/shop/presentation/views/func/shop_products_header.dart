@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/styles/styles.dart';
 
 Column shopProductsHeader() {
   return const Column(
@@ -22,10 +23,7 @@ Column shopProductsHeader() {
             ),
             Text(
               'All Products',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 24,
-              ),
+              style: Styles.textStyle24,
             ),
           ],
         ),
