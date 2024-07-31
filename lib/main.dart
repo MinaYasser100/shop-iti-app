@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:shop_iti_app/core/api/dio_api.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/pages/get_pages.dart';
 import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
-import 'package:shop_iti_app/features/layout/presentation/views/layout_view.dart';
 
 import 'features/layout/presentation/views/widgets/shop/presentation/manager/shop_screen_cubit/shop_screen_cubit.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ShopScreenCubit()..getShopData(),
         ),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
           colorScheme:
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        home: const LayoutView(),
+        initialRoute: GetPages.kLayoutView,
+        getPages: GetPages.getPages,
       ),
     );
   }

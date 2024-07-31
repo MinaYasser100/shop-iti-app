@@ -36,6 +36,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_canvas_woocommerce: ^0.0.2
   font_awesome_flutter: ^10.7.0
+  get: ^4.6.6
 
 dev_dependencies:
   flutter_lints: ^3.0.0
