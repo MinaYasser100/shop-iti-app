@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shop_iti_app/core/api/dio_api.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
+import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
 import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
 
 import 'features/layout/presentation/views/widgets/shop/presentation/manager/shop_screen_cubit/shop_screen_cubit.dart';
@@ -12,6 +14,8 @@ import 'features/layout/presentation/views/widgets/shop/presentation/manager/sho
 void main() async {
   DioApi.initDio();
   await Hive.initFlutter();
+  Hive.registerAdapter(ProductItemModelAdapter());
+  await Hive.openBox<ProductItemModel>(HiveHelper.productItemModelBox);
   runApp(const MyApp());
 }
 
