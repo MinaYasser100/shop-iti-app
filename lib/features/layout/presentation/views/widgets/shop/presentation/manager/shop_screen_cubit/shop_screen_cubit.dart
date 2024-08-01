@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/core/api/dio_api.dart';
 import 'package:shop_iti_app/core/api/dio_end_point.dart';
+import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/proudect_model.dart';
+import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/favorite_model/datum.dart';
+import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/favorite_model/favorite_model.dart';
 
 part 'shop_screen_state.dart';
 
@@ -16,6 +20,16 @@ class ShopScreenCubit extends Cubit<ShopScreenState> {
       Response response = await DioApi.getData(endPoint: DioEndPoint.dioHome);
       if (response.statusCode == 200) {
         proudectsModel = ProudectModel.fromJson(response.data);
+        List<Datum> dataFavoriteProduct = await getFavoriteProduct();
+        for (var element in dataFavoriteProduct) {
+          for (var item in proudectsModel!.data!.products!) {
+            if (element.product!.id == item.id) {
+              await HiveHelper.delectAllFavProducts();
+              await HiveHelper.addFavoriteProduct(item);
+              print(item.name);
+            }
+          }
+        }
         emit(ShopScreenGetShopDataSuceess(proudectsModel: proudectsModel!));
       } else {
         emit(
@@ -28,5 +42,19 @@ class ShopScreenCubit extends Cubit<ShopScreenState> {
     } catch (e) {
       emit(ShopScreenGetShopDataFailure(errorMessage: e.toString()));
     }
+  }
+
+  Future<List<Datum>> getFavoriteProduct() async {
+    Response response = await DioApi.getData(
+      endPoint: DioEndPoint.dioFavorites,
+      token: ConstantComponents.token,
+    );
+    List<Datum> data = [];
+    if (response.statusCode == 200) {
+      FavoriteModel favoriteModel = FavoriteModel.fromJson(response.data);
+      data = favoriteModel.data!.data!;
+      return data;
+    }
+    return data;
   }
 }

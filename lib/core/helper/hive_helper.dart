@@ -18,4 +18,9 @@ class HiveHelper {
     final box = Hive.box<ProductItemModel>(productItemModelBox);
     return box.values.toList();
   }
+
+  static Future<void> delectAllFavProducts() async {
+    final box = Hive.box<ProductItemModel>(productItemModelBox);
+    await box.clear();
+  }
 }
