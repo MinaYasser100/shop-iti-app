@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/banner_model.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/proudect_model.dart';
+import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/presentation/manager/favorite_product_cubit/favorite_product_cubit.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/presentation/views/widget/shop_header.dart';
 
 import '../func/shop_products_header.dart';
@@ -32,7 +34,10 @@ class ShopBodySuceessState extends StatelessWidget {
         SliverToBoxAdapter(
           child: shopProductsHeader(),
         ),
-        ShopProductsSliverGridWidget(proudectsModel: proudectsModel),
+        BlocProvider(
+          create: (context) => FavoriteProductCubit(),
+          child: ShopProductsSliverGridWidget(proudectsModel: proudectsModel),
+        ),
       ],
     );
   }
