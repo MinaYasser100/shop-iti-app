@@ -28,4 +28,8 @@ abstract class Styles {
     fontWeight: FontWeight.w400,
     color: Colors.white,
   );
+  static const textStyle20 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
 }

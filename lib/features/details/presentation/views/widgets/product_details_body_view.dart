@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/styles/styles.dart';
+import 'package:shop_iti_app/features/details/presentation/views/func/name_product_method.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
 
+import 'custom_image_product_details.dart';
+import 'price_product_details_widget.dart';
 import 'product_details_header_widget.dart';
 
 class ProductDetailsBodyView extends StatelessWidget {
@@ -13,54 +16,74 @@ class ProductDetailsBodyView extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ProductDetailsHeaderWidget(),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const ProductDetailsHeaderWidget(),
+              const SizedBox(
+                height: 20,
               ),
-              child: Hero(
-                tag: 'productImage${productItemModel.id}',
-                child: Image(
-                  image: NetworkImage(productItemModel.image ?? ''),
-                  height: 250,
-                  width: MediaQuery.sizeOf(context).width * 0.6,
-                  fit: BoxFit.fill,
+              CustomImageProductDetails(productItemModel: productItemModel),
+              const SizedBox(
+                height: 20,
+              ),
+              nameProductMehtod(
+                  productItemModel.name ?? 'This product not have name'),
+              const SizedBox(
+                height: 10,
+              ),
+              PriceProductDetailsWidget(
+                productItemModel: productItemModel,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Row(
+                children: [
+                  Icon(
+                    Icons.description_rounded,
+                    color: ConstantComponents.firstColor,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Description: ',
+                    style: Styles.textStyle24,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 34),
+                child:
+                    Text(productItemModel.description ?? 'NO have description'),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 50,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: ConstantComponents.firstColor,
+                ),
+                child: MaterialButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Add To Cart',
+                    style: Styles.textStyle20White.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              productItemModel.name ?? 'This product not have name',
-              maxLines: 6,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+              const SizedBox(
+                height: 20,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const Text(
-              'Price:',
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-            Text(
-              '\$${productItemModel.price.toString()}',
-              style: Styles.textStyle24.copyWith(
-                color: ConstantComponents.firstColor,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
