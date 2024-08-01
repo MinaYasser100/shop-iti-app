@@ -9,7 +9,7 @@ class HiveHelper {
     await box.put(product.id, product);
   }
 
-  static void removeFavoriteProduct(ProductItemModel product) async {
+  static Future<void> removeFavoriteProduct(ProductItemModel product) async {
     final box = Hive.box<ProductItemModel>(productItemModelBox);
     await box.delete(product.id);
   }

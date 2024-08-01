@@ -1,18 +1,18 @@
 import 'datum.dart';
 
 class FavData {
-  int? currentPage;
+  num? currentPage;
   List<Datum>? data;
   String? firstPageUrl;
-  int? from;
-  int? lastPage;
+  num? from;
+  num? lastPage;
   String? lastPageUrl;
   dynamic nextPageUrl;
   String? path;
-  int? perPage;
+  num? perPage;
   dynamic prevPageUrl;
-  int? to;
-  int? total;
+  num? to;
+  num? total;
 
   FavData({
     this.currentPage,
@@ -30,20 +30,20 @@ class FavData {
   });
 
   factory FavData.fromJson(Map<String, dynamic> json) => FavData(
-        currentPage: json['current_page'] as int?,
+        currentPage: json['current_page'] as num?,
         data: (json['data'] as List<dynamic>?)
             ?.map((e) => Datum.fromJson(e as Map<String, dynamic>))
             .toList(),
         firstPageUrl: json['first_page_url'] as String?,
-        from: json['from'] as int?,
-        lastPage: json['last_page'] as int?,
+        from: json['from'] as num?,
+        lastPage: json['last_page'] as num?,
         lastPageUrl: json['last_page_url'] as String?,
         nextPageUrl: json['next_page_url'] as dynamic,
         path: json['path'] as String?,
-        perPage: json['per_page'] as int?,
+        perPage: json['per_page'] as num?,
         prevPageUrl: json['prev_page_url'] as dynamic,
-        to: json['to'] as int?,
-        total: json['total'] as int?,
+        to: json['to'] as num?,
+        total: json['total'] as num?,
       );
 
   Map<String, dynamic> toJson() => {

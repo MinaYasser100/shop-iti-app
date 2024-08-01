@@ -1,7 +1,7 @@
 import 'fav_product.dart';
 
 class Datum {
-  int? id;
+  num? id;
   FavProduct? product;
 
   Datum({this.id, this.product});

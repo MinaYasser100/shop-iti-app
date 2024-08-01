@@ -21,12 +21,11 @@ class ShopScreenCubit extends Cubit<ShopScreenState> {
       if (response.statusCode == 200) {
         proudectsModel = ProudectModel.fromJson(response.data);
         List<Datum> dataFavoriteProduct = await getFavoriteProduct();
+        await HiveHelper.delectAllFavProducts();
         for (var element in dataFavoriteProduct) {
           for (var item in proudectsModel!.data!.products!) {
             if (element.product!.id == item.id) {
-              await HiveHelper.delectAllFavProducts();
               await HiveHelper.addFavoriteProduct(item);
-              print(item.name);
             }
           }
         }
@@ -51,9 +50,13 @@ class ShopScreenCubit extends Cubit<ShopScreenState> {
     );
     List<Datum> data = [];
     if (response.statusCode == 200) {
-      FavoriteModel favoriteModel = FavoriteModel.fromJson(response.data);
-      data = favoriteModel.data!.data!;
-      return data;
+      try {
+        FavoriteModel favoriteModel = FavoriteModel.fromJson(response.data);
+        data = favoriteModel.data!.data!;
+        return data;
+      } catch (e) {
+        print(e.toString());
+      }
     }
     return data;
   }

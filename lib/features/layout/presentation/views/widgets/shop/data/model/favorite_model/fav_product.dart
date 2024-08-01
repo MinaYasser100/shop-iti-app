@@ -1,8 +1,8 @@
 class FavProduct {
-  int? id;
-  int? price;
-  int? oldPrice;
-  int? discount;
+  num? id;
+  num? price;
+  num? oldPrice;
+  num? discount;
   String? image;
   String? name;
   String? description;
@@ -18,10 +18,10 @@ class FavProduct {
   });
 
   factory FavProduct.fromJson(Map<String, dynamic> json) => FavProduct(
-        id: json['id'] as int?,
-        price: json['price'] as int?,
-        oldPrice: json['old_price'] as int?,
-        discount: json['discount'] as int?,
+        id: json['id'] as num?,
+        price: json['price'] as num?,
+        oldPrice: json['old_price'] as num?,
+        discount: json['discount'] as num?,
         image: json['image'] as String?,
         name: json['name'] as String?,
         description: json['description'] as String?,

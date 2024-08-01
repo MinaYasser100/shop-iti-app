@@ -1,6 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:shop_iti_app/core/api/dio_api.dart';
+import 'package:shop_iti_app/core/api/dio_end_point.dart';
+import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
 import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
 
@@ -17,10 +22,40 @@ class FavoriteProductCubit extends Cubit<FavortieProductStates> {
     final box =
         await Hive.openBox<ProductItemModel>(HiveHelper.productItemModelBox);
     if (box.containsKey(product.id)) {
-      HiveHelper.removeFavoriteProduct(product);
+      await HiveHelper.removeFavoriteProduct(product);
+      await addOrDeleteFavoriteInApi(product.id!);
+      customSnackBar(
+        productName: product.name!,
+        text: 'Removed From Favorites',
+      );
     } else {
       await HiveHelper.addFavoriteProduct(product);
+      await addOrDeleteFavoriteInApi(product.id!);
+      customSnackBar(
+        productName: product.name!,
+        text: 'Added To Favorites',
+      );
     }
     emit(FavortieProductChangeState());
+  }
+
+  Future<void> addOrDeleteFavoriteInApi(int productId) async {
+    emit(FavortieProductAddOrDeleteFavoriteProductLoading());
+    try {
+      Response<dynamic> response = await DioApi.postData(
+        endPoint: DioEndPoint.dioFavorites,
+        body: {
+          'product_id': productId,
+        },
+        token: ConstantComponents.token,
+      );
+      emit(
+        FavortieProductAddOrDeleteFavoriteProductSuccess(
+          message: response.data['message'],
+        ),
+      );
+    } catch (e) {
+      emit(FavortieProductAddOrDeleteFavoriteProductFaliure());
+    }
   }
 }
