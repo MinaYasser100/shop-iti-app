@@ -19,7 +19,7 @@ class CartItemAdapter extends TypeAdapter<CartItem> {
     return CartItem(
       id: fields[0] as int?,
       quantity: fields[1] as int?,
-      product: fields[2] as Product?,
+      product: fields[2] as ProductItemModel?,
     );
   }
 

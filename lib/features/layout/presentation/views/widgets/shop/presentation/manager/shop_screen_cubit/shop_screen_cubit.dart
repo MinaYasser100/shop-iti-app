@@ -6,6 +6,8 @@ import 'package:shop_iti_app/core/api/dio_end_point.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/proudect_model.dart';
+import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/carts_model/cart_item.dart';
+import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/carts_model/carts_model.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/favorite_model/datum.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/favorite_model/favorite_model.dart';
 
@@ -29,6 +31,7 @@ class ShopScreenCubit extends Cubit<ShopScreenState> {
             }
           }
         }
+        await getCartProducts();
         emit(ShopScreenGetShopDataSuceess(proudectsModel: proudectsModel!));
       } else {
         emit(
@@ -59,5 +62,27 @@ class ShopScreenCubit extends Cubit<ShopScreenState> {
       }
     }
     return data;
+  }
+
+  Future<void> getCartProducts() async {
+    Response response = await DioApi.getData(
+      endPoint: DioEndPoint.dioCarts,
+      token: ConstantComponents.token,
+    );
+    List<CartItem> cartsProducts = [];
+    if (response.statusCode == 200) {
+      try {
+        CartsModel cartsModel = CartsModel.fromJson(response.data);
+        if (cartsModel.data!.cartItems!.isNotEmpty) {
+          cartsProducts = cartsModel.data!.cartItems!;
+        }
+        for (var element in cartsProducts) {
+          HiveHelper.addProductToCart(element);
+          print(element.product!.name);
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    }
   }
 }

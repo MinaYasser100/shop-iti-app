@@ -16,6 +16,7 @@ void main() async {
   DioApi.initDio();
   await Hive.initFlutter();
   Hive.registerAdapter(ProductItemModelAdapter());
+  Hive.registerAdapter(CartItemAdapter());
   await Hive.openBox<ProductItemModel>(HiveHelper.productItemModelBox);
   await Hive.openBox<CartItem>(HiveHelper.cartBox);
   runApp(const MyApp());
