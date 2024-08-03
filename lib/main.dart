@@ -8,6 +8,7 @@ import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
 import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
+import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/carts_model/cart_item.dart';
 
 import 'features/layout/presentation/views/widgets/shop/presentation/manager/shop_screen_cubit/shop_screen_cubit.dart';
 
@@ -16,6 +17,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ProductItemModelAdapter());
   await Hive.openBox<ProductItemModel>(HiveHelper.productItemModelBox);
+  await Hive.openBox<CartItem>(HiveHelper.cartBox);
   runApp(const MyApp());
 }
 

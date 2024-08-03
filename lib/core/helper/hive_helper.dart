@@ -1,8 +1,10 @@
 import 'package:hive/hive.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
+import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/carts_model/cart_item.dart';
 
 class HiveHelper {
   static const productItemModelBox = 'productItemModelBox';
+  static const cartBox = 'cartBox';
 
   static Future<void> addFavoriteProduct(ProductItemModel product) async {
     final box = Hive.box<ProductItemModel>(productItemModelBox);
@@ -21,6 +23,26 @@ class HiveHelper {
 
   static Future<void> delectAllFavProducts() async {
     final box = Hive.box<ProductItemModel>(productItemModelBox);
+    await box.clear();
+  }
+
+  static Future<void> addProductToCart(CartItem product) async {
+    final box = Hive.box<CartItem>(cartBox);
+    await box.put(product.id, product);
+  }
+
+  static Future<void> removeProductFromCart(CartItem product) async {
+    final box = Hive.box<CartItem>(cartBox);
+    await box.delete(product.id);
+  }
+
+  static List<CartItem> getCartProducts() {
+    final box = Hive.box<CartItem>(cartBox);
+    return box.values.toList();
+  }
+
+  static Future<void> delectAllProductsFromCart() async {
+    final box = Hive.box<CartItem>(cartBox);
     await box.clear();
   }
 }
