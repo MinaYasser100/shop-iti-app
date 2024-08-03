@@ -25,14 +25,14 @@ class FavoriteProductCubit extends Cubit<FavortieProductStates> {
       await HiveHelper.removeFavoriteProduct(product);
       await addOrDeleteFavoriteInApi(product.id!);
       customSnackBar(
-        productName: product.name!,
+        subTitle: product.name!,
         text: 'Removed From Favorites',
       );
     } else {
       await HiveHelper.addFavoriteProduct(product);
       await addOrDeleteFavoriteInApi(product.id!);
       customSnackBar(
-        productName: product.name!,
+        subTitle: product.name!,
         text: 'Added To Favorites',
       );
     }
