@@ -28,12 +28,12 @@ class HiveHelper {
 
   static Future<void> addProductToCart(CartItem product) async {
     final box = Hive.box<CartItem>(cartBox);
-    await box.put(product.id, product);
+    await box.put(product.product!.id, product);
   }
 
-  static Future<void> removeProductFromCart(CartItem product) async {
+  static Future<void> removeProductFromCart(int productId) async {
     final box = Hive.box<CartItem>(cartBox);
-    await box.delete(product.id);
+    await box.delete(productId);
   }
 
   static List<CartItem> getCartProducts() {

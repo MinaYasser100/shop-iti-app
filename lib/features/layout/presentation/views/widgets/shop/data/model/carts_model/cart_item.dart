@@ -6,17 +6,17 @@ part 'cart_item.g.dart';
 @HiveType(typeId: 1)
 class CartItem {
   @HiveField(0)
-  int? id;
+  num? id;
   @HiveField(1)
-  int? quantity;
+  num? quantity;
   @HiveField(2)
   ProductItemModel? product;
 
   CartItem({this.id, this.quantity, this.product});
 
   factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
-        id: json['id'] as int?,
-        quantity: json['quantity'] as int?,
+        id: json['id'] as num?,
+        quantity: json['quantity'] as num?,
         product: json['product'] == null
             ? null
             : ProductItemModel.fromJson(

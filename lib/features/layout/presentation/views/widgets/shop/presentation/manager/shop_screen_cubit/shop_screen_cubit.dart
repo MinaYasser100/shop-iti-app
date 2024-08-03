@@ -75,10 +75,11 @@ class ShopScreenCubit extends Cubit<ShopScreenState> {
         CartsModel cartsModel = CartsModel.fromJson(response.data);
         if (cartsModel.data!.cartItems!.isNotEmpty) {
           cartsProducts = cartsModel.data!.cartItems!;
-        }
-        for (var element in cartsProducts) {
-          HiveHelper.addProductToCart(element);
-          print(element.product!.name);
+          await HiveHelper.delectAllProductsFromCart();
+          for (var element in cartsProducts) {
+            HiveHelper.addProductToCart(element);
+            print(element.product!.name);
+          }
         }
       } catch (e) {
         print(e.toString());

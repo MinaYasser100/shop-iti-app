@@ -20,7 +20,8 @@ class ProductDetailsBodyView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: BlocProvider(
-            create: (context) => CartStatesCubit(),
+            create: (context) =>
+                CartStatesCubit()..determineState(productItemModel),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -46,7 +47,9 @@ class ProductDetailsBodyView extends StatelessWidget {
                 DescriptionProductSectionWidget(
                   productItemModel: productItemModel,
                 ),
-                const ButtonCartStates(),
+                ButtonCartStates(
+                  productItemModel: productItemModel,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
