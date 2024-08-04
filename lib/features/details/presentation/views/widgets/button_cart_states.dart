@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
 import 'package:shop_iti_app/core/styles/styles.dart';
 import 'package:shop_iti_app/features/details/presentation/manager/cart_states_cubit/cart_states_cubit.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
@@ -13,8 +14,16 @@ class ButtonCartStates extends StatelessWidget {
   final ProductItemModel productItemModel;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartStatesCubit, CartStatesStates>(
-        builder: (context, state) {
+    return BlocConsumer<CartStatesCubit, CartStatesStates>(
+        listener: (context, state) {
+      if (state is CartStatesAddOrDeleteProductCartInApifailure) {
+        customSnackBar(
+          subTitle: 'Error',
+          text: state.errorMessage,
+          color: Colors.red,
+        );
+      }
+    }, builder: (context, state) {
       if (state is CartStatesToggleCartProductsLoading ||
           state is CartStatesAddOrDeleteProductCartInApiLoading ||
           state is CartStatesAddOrDeleteProductCartInApiSuccess ||

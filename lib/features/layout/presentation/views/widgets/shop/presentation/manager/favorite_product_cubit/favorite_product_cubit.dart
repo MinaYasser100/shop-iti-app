@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:shop_iti_app/core/api/dio_api.dart';
 import 'package:shop_iti_app/core/api/dio_end_point.dart';
+import 'package:shop_iti_app/core/api/failures.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
 import 'package:shop_iti_app/core/helper/hive_helper.dart';
@@ -55,6 +56,13 @@ class FavoriteProductCubit extends Cubit<FavortieProductStates> {
         ),
       );
     } catch (e) {
+      if (e is DioException) {
+        customSnackBar(
+          subTitle: 'Server Error',
+          text: ServerFailure.fromDioException(e).toString(),
+          color: Colors.red,
+        );
+      }
       emit(FavortieProductAddOrDeleteFavoriteProductFaliure());
     }
   }

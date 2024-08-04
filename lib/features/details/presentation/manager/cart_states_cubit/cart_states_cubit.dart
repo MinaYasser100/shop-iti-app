@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:shop_iti_app/core/api/dio_api.dart';
 import 'package:shop_iti_app/core/api/dio_end_point.dart';
+import 'package:shop_iti_app/core/api/failures.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/func/check_internet_connection.dart';
 import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
@@ -67,6 +68,13 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
         ),
       );
     } catch (e) {
+      if (e is DioException) {
+        customSnackBar(
+          subTitle: 'Server Error',
+          text: ServerFailure.fromDioException(e).toString(),
+          color: Colors.red,
+        );
+      }
       emit(
         CartStatesAddOrDeleteProductCartInApifailure(
             errorMessage: e.toString()),
@@ -89,11 +97,17 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
           await HiveHelper.delectAllProductsFromCart();
           for (var element in cartsProducts) {
             HiveHelper.addProductToCart(element);
-            print(element.product!.name);
           }
         }
         emit(CartStatesGetCartProductsSuccess());
       } catch (e) {
+        if (e is DioException) {
+          customSnackBar(
+            subTitle: 'Server Error',
+            text: ServerFailure.fromDioException(e).toString(),
+            color: Colors.red,
+          );
+        }
         emit(CartStatesGetCartProductsFailure());
       }
     }
