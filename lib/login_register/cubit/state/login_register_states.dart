@@ -1,8 +1,8 @@
 abstract class BaseLogRegState{
-  final bool? isErrorMsg;
-  final String? msg;
+  bool? isErrorMsg;
+  String? msg;
   final bool isLoading;
-  const BaseLogRegState({
+  BaseLogRegState({
     this.msg,
     this.isErrorMsg,
     this.isLoading = false,
@@ -10,7 +10,7 @@ abstract class BaseLogRegState{
 }
 
 class RegisterPageState extends BaseLogRegState{
-  const RegisterPageState({
+  RegisterPageState({
     super.msg,
     super.isErrorMsg,
     super.isLoading = false,
@@ -18,7 +18,7 @@ class RegisterPageState extends BaseLogRegState{
 }
 
 class LoginPageState extends BaseLogRegState{
-  const LoginPageState({
+  LoginPageState({
     super.msg,
     super.isErrorMsg,
     super.isLoading = false,

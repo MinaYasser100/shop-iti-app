@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_iti_app/login_register/cubit/login_register_cubit.dart';
+import 'package:shop_iti_app/login_register/cubit/state/login_register_states.dart';
 import 'package:shop_iti_app/login_register/models/request_models.dart';
 import 'package:shop_iti_app/login_register/ui/widgets/submit_form_button.dart';
 import 'package:shop_iti_app/login_register/utils/fields_checks.dart';
+import 'package:shop_iti_app/login_register/utils/loading_page.dart';
+import 'package:shop_iti_app/login_register/utils/utils.dart';
 
 import '../../../core/constant/constant.dart';
 import '../widgets/custom_text_field.dart';
@@ -16,7 +21,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
   bool _rememberMe = true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passController.dispose();
+    
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,47 +42,60 @@ class _LoginPageState extends State<LoginPage> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: Form(
-            key: _gkLoginForm,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CustomTextFormField(
-                  title: "Email Address",
-                  validator: (v) => FieldCheck.email(v ?? "")
-                    ? null
-                    : "Enter a correct email",
-                ),
-                const SizedBox(height: 20,),
-                CustomTextFormField(
-                  title: "Password",
-                  isPassField: true,
-                  validator: (v) => FieldCheck.password(v ?? "")
-                    ? null
-                    : "Enter a password",
-                ),
-                const SizedBox(height: 20,),
-                Center(child: _rememberMeAndForgetPass()),
-                const SizedBox(height: 30,),
-                SubmitFormButton(
-                  title: "Login",
-                  onTap: () => _gkLoginForm.currentState?.validate(),
-                ),
-                if(false) SizedBox( // TODO
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: (){}, 
-                    child: const Text("Login"),
+      body: BlocListener<UserCubit, BaseLogRegState>(
+        listener: userCubitListner,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Form(
+              key: _gkLoginForm,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomTextFormField(
+                    title: "Email Address",
+                    controller: _emailController,
+                    validator: (v) => FieldCheck.email(v ?? "")
+                      ? null
+                      : "Enter a correct email",
                   ),
-                ),
-                const SizedBox(height: 20,),
-                Center(child: _registerQuestion())
-              ],
+                  const SizedBox(height: 20,),
+                  CustomTextFormField(
+                    title: "Password",
+                    controller: _passController,
+                    isPassField: true,
+                    validator: (v) => FieldCheck.password(v ?? "")
+                      ? null
+                      : "Enter a password",
+                  ),
+                  const SizedBox(height: 20,),
+                  Center(child: _rememberMeAndForgetPass()),
+                  const SizedBox(height: 30,),
+                  SubmitFormButton(
+                    title: "Login",
+                    onTap: (){
+                      if(_gkLoginForm.currentState?.validate() ?? false){
+                        context.read<UserCubit>().login(
+                          email: _emailController.text, 
+                          password: _passController.text, 
+                          rememberMe: _rememberMe,
+                        );
+                      }
+                    },
+                  ),
+                  if(false) SizedBox( // TODO
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: (){}, 
+                      child: const Text("Login"),
+                    ),
+                  ),
+                  const SizedBox(height: 20,),
+                  Center(child: _registerQuestion())
+                ],
+              ),
             ),
           ),
         ),
@@ -81,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
       const Text("Don`t have an account?"),
       const SizedBox(width: 2,),
       TextButton(
-        onPressed: (){},
+        onPressed: () => context.read<UserCubit>().toRegisterPage(),
         child: const Text(
           "Register", 
           style: TextStyle(color: ConstantComponents.firstColor,),

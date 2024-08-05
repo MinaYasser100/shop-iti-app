@@ -36,7 +36,7 @@ abstract class BaseUser with Jsonable{
 }
 
 class ActiveUser extends BaseUser{
-  final String id;
+  final int id;
   final String imageUrl;
   final int? points;
   final int? credit;
@@ -59,7 +59,7 @@ class ActiveUser extends BaseUser{
 
   ActiveUser.fromJson(super.json) : 
     id = json["id"],
-    imageUrl = json["imageUrl"],
+    imageUrl = json["image"],
     points = json["points"],
     credit = json["credit"],
     token = json["token"],
@@ -70,7 +70,7 @@ class ActiveUser extends BaseUser{
   JSON toJson() => {
     ...super.toJson(),
     "id": id,
-    "imageUrl": imageUrl,
+    "image": imageUrl,
     "points": points,
     "credit": credit,
     "token": token,

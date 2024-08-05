@@ -14,7 +14,7 @@ class LoginApi{
   static ApiResponse<T> _getApiRes<T extends Object>(
     Response dioRes, 
     [T Function(JSON json)? dataCallback]
-  ) {
+  ){
     if(dioRes.statusCode != 200){
       throw const ApiResponseFailure();
     }
@@ -40,18 +40,18 @@ class LoginApi{
   }
 
   static Future<ApiResponse<ActiveUser>> register(RegisterUserRequest registerReq) => _registerOrLogin(
-    "${DioEndPoint.dioHome}register",
+    DioEndPoint.dioRegister,
     registerReq,
   );
 
   static Future<ApiResponse<ActiveUser>> login(LoginCredintials loginCredintials) => _registerOrLogin(
-    "${DioEndPoint.dioHome}login",
+    DioEndPoint.dioLogin,
     loginCredintials,
   );
   
   static Future<ApiResponse> logout(ActiveUser user) async {
     final dioRes = await DioApi.postData(
-      endPoint: "${DioEndPoint.dioHome}login",
+      endPoint: DioEndPoint.dioLogout,
       body: {},
       token: user.token,
     );
@@ -64,7 +64,7 @@ class LoginApi{
     ChangePasswordRequest changePasswordReq
   ) async {
     final dioRes = await DioApi.postData(
-      endPoint: "${DioEndPoint.dioHome}change-password",
+      endPoint: DioEndPoint.dioChangePass,
       body: changePasswordReq.toJson(),
       token: user.token,
     );

@@ -2,14 +2,16 @@ import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
 import 'package:shop_iti_app/login_register/api/login_api.dart';
 import 'package:shop_iti_app/login_register/api/response_model.dart';
 import 'package:shop_iti_app/login_register/cubit/state/login_register_states.dart';
 import 'package:shop_iti_app/login_register/models/request_models.dart';
 import 'package:shop_iti_app/login_register/models/user_models.dart';
+import 'package:shop_iti_app/login_register/utils/loading_page.dart';
 class UserCubit extends Cubit<BaseLogRegState> {
-  UserCubit() : super(const LoginPageState());
+  UserCubit() : super(LoginPageState());
 
   void register({
     required String name,
@@ -18,7 +20,7 @@ class UserCubit extends Cubit<BaseLogRegState> {
     required String password,
     required String? imagePath,
   }) async {
-    emit(const RegisterPageState(isLoading: true,));
+    emit(RegisterPageState(isLoading: true,));
 
     late final List<int>? imageBytes;
     try {
@@ -58,6 +60,7 @@ class UserCubit extends Cubit<BaseLogRegState> {
     }
 
     if(regResult.status){
+      Get.offAndToNamed(GetPages.kLoginView);
       emit(LoginPageState(
         isErrorMsg: regResult.message == null ? null : false,
         isLoading: false,
@@ -79,7 +82,7 @@ class UserCubit extends Cubit<BaseLogRegState> {
     required String password,
     required bool rememberMe,
   }) async {
-    emit(const LoginPageState(isLoading: true,));
+    emit(LoginPageState(isLoading: true,));
 
     late final LoginCredintials credintials;
     try {
@@ -109,7 +112,9 @@ class UserCubit extends Cubit<BaseLogRegState> {
     }
 
     if(loginResult.status){
-      // TODO
+      LoadingScreen().forcedHide();
+      ConstantComponents.token = loginResult.data != null ? loginResult.data!.token : ConstantComponents.token;
+      // TODO : remember me
       Get.toNamed(GetPages.kLayoutView);
     }else{
       emit(LoginPageState(
@@ -121,5 +126,5 @@ class UserCubit extends Cubit<BaseLogRegState> {
     }
   }
 
-
+  void toRegisterPage() => Get.toNamed(GetPages.kRegisterView);
 }

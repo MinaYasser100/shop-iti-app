@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ProfileAvatar extends StatefulWidget {
   final void Function()? onTap;
@@ -27,24 +26,23 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
     child: Stack(
       alignment: Alignment.center,
       children: [
-        widget.image == null 
-        ? CircleAvatar(
-          radius: widget.radius,
-          child: Icon(
-            Icons.person, 
-            size: widget.radius * (150 / 80),
-            color: Colors.white,
-          ),
-        )
-        : Image(
-          image: widget.image!,
-          errorBuilder: (context, _, __) => CircleAvatar(
+        ClipOval(
+          child: CircleAvatar(
             radius: widget.radius,
-            child: Icon(
-              Icons.broken_image, 
-              size: widget.radius,
-              color: Colors.red,
-            ),
+            child: widget.image == null 
+              ? Icon(
+                Icons.person, 
+                size: widget.radius * (150 / 80),
+                color: Colors.white,
+              )
+              : Image(
+                image: widget.image!,
+                errorBuilder: (context, _, __) => Icon(
+                  Icons.broken_image, 
+                  size: widget.radius,
+                  color: Colors.red,
+                ),
+              ),
           ),
         ),
         if(_hovered) CircleAvatar(
