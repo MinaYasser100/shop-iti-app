@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/pages/get_pages.dart';
 import 'package:shop_iti_app/core/styles/styles.dart';
 
 Row shopAppBar() {
@@ -22,7 +24,9 @@ Row shopAppBar() {
           borderRadius: BorderRadius.circular(22),
         ),
         child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(GetPages.kSearchView);
+          },
           icon: const Icon(
             FontAwesomeIcons.magnifyingGlass,
             color: ConstantComponents.firstColor,
