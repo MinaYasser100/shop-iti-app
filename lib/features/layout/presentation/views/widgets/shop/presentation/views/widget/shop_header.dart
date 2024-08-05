@@ -16,7 +16,7 @@ class ShopHeader extends StatelessWidget {
           const SizedBox(
             height: 50,
           ),
-          shopAppBar(),
+          shopAppBar(context),
         ],
       ),
     );

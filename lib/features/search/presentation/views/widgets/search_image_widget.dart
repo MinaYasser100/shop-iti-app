@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/styles/styles.dart';
+import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
 
 class SearchImageWidget extends StatelessWidget {
   const SearchImageWidget({
     super.key,
+    required this.productItemModel,
   });
-
+  final ProductItemModel productItemModel;
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        const Image(
+        Image(
           fit: BoxFit.fill,
           height: 190,
           width: 140,
-          image: NetworkImage(
-              'https://img.freepik.com/free-psd/black-friday-super-sale-social-media-banner-template_106176-1471.jpg?uid=R147359636&ga=GA1.1.1784309676.1714236600&semt=sph'),
+          image: NetworkImage(productItemModel.image ?? ''),
         ),
-        Container(
-          height: 30,
-          width: 140,
-          decoration: const BoxDecoration(
-            color: ConstantComponents.firstColor,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(40),
+        if (productItemModel.discount != 0)
+          Container(
+            height: 30,
+            width: 140,
+            decoration: const BoxDecoration(
+              color: ConstantComponents.firstColor,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(40),
+              ),
             ),
-          ),
-          child: const Text(
-            '  Discount',
-            style: Styles.textStyle20White,
-          ),
-        )
+            child: const Text(
+              '  Discount',
+              style: Styles.textStyle20White,
+            ),
+          )
       ],
     );
   }

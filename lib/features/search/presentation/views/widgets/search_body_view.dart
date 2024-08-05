@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:shop_iti_app/core/styles/styles.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_iti_app/features/search/presentation/manager/search_cubit.dart';
 
-import 'search_item_product_widget.dart';
+import 'search_result_bloc_builder.dart';
 
-class SearchBodyView extends StatelessWidget {
+class SearchBodyView extends StatefulWidget {
   const SearchBodyView({super.key});
 
+  @override
+  State<SearchBodyView> createState() => _SearchBodyViewState();
+}
+
+class _SearchBodyViewState extends State<SearchBodyView> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +25,18 @@ class SearchBodyView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              controller: searchController,
+              onChanged: (value) {
+                context
+                    .read<SearchCubit>()
+                    .searchForProdcute(searchController.text);
+              },
               decoration: InputDecoration(
+                hintText: 'Search here...',
+                hintStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.normal,
+                ),
                 fillColor: Colors.white,
                 filled: true,
                 border: OutlineInputBorder(
@@ -29,21 +47,8 @@ class SearchBodyView extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              'Search Result : ',
-              style: Styles.textStyles20First,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => const SearchItemProductWidget(),
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 10,
-              ),
-              itemCount: 15,
+            SearchResultBlocBuilder(
+              searchController: searchController,
             ),
           ],
         ),
