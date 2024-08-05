@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: GetPages.kLayoutView,
+        initialRoute: GetPages.kLoginView,
         getPages: GetPages.getPages,
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:shop_iti_app/login_register/models/request_models.dart';
+import 'package:shop_iti_app/login_register/utils/fields_checks.dart';
 
 import '../utils/utils.dart';
 
@@ -16,8 +17,8 @@ abstract class BaseUser with Jsonable{
     String? password,
     required this.phoneNum,
   }) : 
-    assert(name.trim().isNotEmpty),
-    assert(phoneNum.trim().isNotEmpty && RegExp(r"^\+?[0-9]+$").hasMatch(phoneNum)),
+    assert(FieldCheck.name(name)),
+    assert(FieldCheck.phoneNum(phoneNum)),
     name = name.trim().replaceAll(RegExp(r"\s+")," "),
     _credintials = LoginCredintials(email: email, password: password,);
 
@@ -51,8 +52,8 @@ class ActiveUser extends BaseUser{
     this.points,
     this.credit,
   }) : 
-    assert(points != null && points >= 0),
-    assert(credit != null && credit >= 0),
+    assert((points ?? 0) >= 0),
+    assert((credit ?? 0) >= 0),
     assert(token.isNotEmpty),
     super();
 

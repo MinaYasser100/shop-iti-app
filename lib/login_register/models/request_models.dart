@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:shop_iti_app/login_register/utils/fields_checks.dart';
+
 import '../utils/utils.dart';
 import 'user_models.dart';
 
@@ -10,8 +12,8 @@ class LoginCredintials with Jsonable{
     required this.email,
     this.password,
   }) : 
-    assert(password?.isNotEmpty ?? true),
-    assert(RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email));
+    assert(password == null ? true : FieldCheck.password(password)),
+    assert(FieldCheck.email(email));
 
   factory LoginCredintials.create({
     required String email,
@@ -61,7 +63,7 @@ class ChangePasswordRequest with Jsonable{
     required this.currentPassword,
     required this.newPassword,
   }) : 
-    assert(currentPassword.isNotEmpty && newPassword.isNotEmpty);
+    assert(FieldCheck.password(currentPassword) && FieldCheck.password(newPassword));
 
   @override
   JSON toJson() => {
