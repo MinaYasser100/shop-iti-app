@@ -5,12 +5,14 @@ class CustomTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final bool isPassField;
+  final Widget? prefixIcon;
   const CustomTextFormField({
     super.key,
     required this.title,
     this.controller,
     this.validator,
     this.isPassField = false,
+    this.prefixIcon,
   });
 
   @override
@@ -24,7 +26,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topCenter,
-      height: 70,
+      height: 85,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -36,9 +38,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               decoration: InputDecoration(
                 filled: true,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: BorderSide.none
                 ),
                 labelText: widget.title,
+                prefixIcon: widget.prefixIcon,
                 suffixIcon: !widget.isPassField ? null : IconButton(
                   onPressed: () => setState(() => _isPassShown = !_isPassShown),
                   icon: Icon(_isPassShown 

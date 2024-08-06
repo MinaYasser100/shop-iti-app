@@ -13,6 +13,8 @@ import 'package:shop_iti_app/login_register/cubit/login_register_cubit.dart';
 
 import 'features/layout/presentation/views/widgets/shop/presentation/manager/shop_screen_cubit/shop_screen_cubit.dart';
 
+late final bool _showOnboarding;
+
 void main() async {
   DioApi.initDio();
   await Hive.initFlutter();
@@ -20,6 +22,14 @@ void main() async {
   Hive.registerAdapter(CartItemAdapter());
   await Hive.openBox<ProductItemModel>(HiveHelper.productItemModelBox);
   await Hive.openBox<CartItem>(HiveHelper.cartBox);
+
+
+  await Hive.openBox<bool>(HiveHelper.onboardingBox);
+  // await HiveHelper.resetOnboarding(); // uncomment to force show onboarding screen
+  _showOnboarding = await HiveHelper.canShowOnboarding();
+  await Hive.openBox<String>(HiveHelper.tokenBox); // TODO : group in a hive init
+  ConstantComponents.token = HiveHelper.getToken() ?? ""; // TODO : add to cubit, check at start to not open login
+  
   runApp(const MyApp());
 }
 
@@ -48,7 +58,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: GetPages.kLoginView,
+        initialRoute: _showOnboarding ? GetPages.kOnboardingView : GetPages.kLoginView, // TODO
         getPages: GetPages.getPages,
       ),
     );

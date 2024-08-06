@@ -5,6 +5,10 @@ import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/dat
 class HiveHelper {
   static const productItemModelBox = 'productItemModelBox';
   static const cartBox = 'cartBox';
+  static const tokenBox = 'tokenBox';
+  static const _tokenKey = 'tokenKey';
+  static const onboardingBox = 'onboardingBox';
+  static const _onboardingKey = 'onboardingKey';
 
   static Future<void> addFavoriteProduct(ProductItemModel product) async {
     final box = Hive.box<ProductItemModel>(productItemModelBox);
@@ -45,4 +49,19 @@ class HiveHelper {
     final box = Hive.box<CartItem>(cartBox);
     await box.clear();
   }
+
+  static String? getToken() => 
+    Hive.box<String>(tokenBox).get(_tokenKey);
+
+  static Future<void> updateToken(String token) async => 
+    await Hive.box<String>(tokenBox).put(_tokenKey, token);
+
+  static Future<bool> canShowOnboarding() async {
+    final res = Hive.box<bool>(onboardingBox).get(_onboardingKey) ?? true;
+    await Hive.box<bool>(onboardingBox).put(_onboardingKey, false);
+    return res;
+  }
+
+  static Future<void> resetOnboarding() async => 
+    Hive.box<bool>(onboardingBox).delete(_onboardingKey);
 }

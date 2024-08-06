@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
 import 'package:shop_iti_app/login_register/api/login_api.dart';
 import 'package:shop_iti_app/login_register/api/response_model.dart';
@@ -60,7 +61,6 @@ class UserCubit extends Cubit<BaseLogRegState> {
         isLoading: false,
         msg: e.toString(),
       ));
-      print(e.toString());
       return;
     }
 
@@ -119,12 +119,14 @@ class UserCubit extends Cubit<BaseLogRegState> {
     }
 
     if (loginResult.status) {
+      if(rememberMe && loginResult.data != null){
+        final token = loginResult.data!.token;
+        HiveHelper.updateToken(token);
+        ConstantComponents.token = token;
+      }
       LoadingScreen().forcedHide();
-      ConstantComponents.token = loginResult.data != null
-          ? loginResult.data!.token
-          : ConstantComponents.token;
-      // TODO : remember me
-      Get.toNamed(GetPages.kLayoutView);
+
+      Get.offAllNamed(GetPages.kLayoutView);
     } else {
       emit(LoginPageState(
         isErrorMsg: loginResult.message == null ? null : true,

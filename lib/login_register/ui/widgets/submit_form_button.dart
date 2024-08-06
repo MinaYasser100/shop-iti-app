@@ -13,10 +13,11 @@ class SubmitFormButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => InkWell(
     onTap: onTap,
+    borderRadius: BorderRadius.circular(30),
     child: Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(30),
         color: ConstantComponents.firstColor,
       ),
       alignment: Alignment.center,
@@ -24,7 +25,11 @@ class SubmitFormButton extends StatelessWidget {
         padding: const EdgeInsets.all(18),
         child: Text(
           title, 
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     ),

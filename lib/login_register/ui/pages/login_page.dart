@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/login_register/cubit/login_register_cubit.dart';
 import 'package:shop_iti_app/login_register/cubit/state/login_register_states.dart';
+import 'package:shop_iti_app/login_register/ui/widgets/page_title.dart';
 import 'package:shop_iti_app/login_register/ui/widgets/submit_form_button.dart';
 import 'package:shop_iti_app/login_register/utils/fields_checks.dart';
 import 'package:shop_iti_app/login_register/utils/utils.dart';
@@ -21,7 +22,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
-  bool _rememberMe = true;
+  bool _rememberMe = false;
+  TextDecoration? _registerDecoration;
 
   @override
   void dispose() {
@@ -34,42 +36,41 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Login", 
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
       body: BlocListener<UserCubit, BaseLogRegState>(
         listener: userCubitListner,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Center(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
             child: Form(
               key: _gkLoginForm,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  const PageTitle(
+                    title: "Login",
+                    subTitle: "Please login to continue.",
+                  ),
+                  const SizedBox(height: 30,),
                   CustomTextFormField(
                     title: "Email Address",
                     controller: _emailController,
+                    prefixIcon: const Icon(Icons.email),
                     validator: (v) => FieldCheck.email(v ?? "")
                       ? null
                       : "Enter a correct email",
                   ),
-                  const SizedBox(height: 20,),
                   CustomTextFormField(
                     title: "Password",
                     controller: _passController,
+                    prefixIcon: const Icon(Icons.lock),
                     isPassField: true,
                     validator: (v) => FieldCheck.password(v ?? "")
                       ? null
                       : "Enter a password",
                   ),
-                  const SizedBox(height: 20,),
                   Center(child: _rememberMeAndForgetPass()),
-                  const SizedBox(height: 30,),
+                  const SizedBox(height: 20,),
                   SubmitFormButton(
                     title: "Login",
                     onTap: (){
@@ -81,14 +82,6 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       }
                     },
-                  ),
-                  if(false) SizedBox( // TODO
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: (){}, 
-                      child: const Text("Login"),
-                    ),
                   ),
                   const SizedBox(height: 20,),
                   Center(child: _registerQuestion())
@@ -104,49 +97,54 @@ class _LoginPageState extends State<LoginPage> {
   Widget _registerQuestion() => Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text("Don`t have an account?"),
-      const SizedBox(width: 2,),
-      TextButton(
-        onPressed: () => context.read<UserCubit>().toRegisterPage(),
-        child: const Text(
+      const Text(
+        "Don`t have account?",
+        style: TextStyle(
+          color: Colors.grey,
+        ),
+      ),
+      const SizedBox(width: 6,),
+      InkWell(
+        onTap: () => context.read<UserCubit>().toRegisterPage(),
+        onHover: (h) => setState(() => _registerDecoration = h ? TextDecoration.underline : null),
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        overlayColor: WidgetStateProperty.all(Colors.transparent),
+        child: Text(
           "Register", 
-          style: TextStyle(color: ConstantComponents.firstColor,),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: ConstantComponents.firstColor,
+            decoration: _registerDecoration,
+          ),
         ),
       ),
     ],
   );
 
-  Widget _rememberMeAndForgetPass() => Transform.translate(
-    offset: const Offset(-10, 0),
+  Widget _rememberMeAndForgetPass() => InkWell(
+    onTap: () => setState(() => _rememberMe = !_rememberMe,),
+    borderRadius: BorderRadius.circular(15),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        InkWell(
-          onTap: () => setState(() => _rememberMe = !_rememberMe),
-          borderRadius: BorderRadius.circular(20),
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IgnorePointer(
-                  child: Checkbox(
-                    value: _rememberMe, 
-                    onChanged: (_){},
-                  ),
-                ),
-                const Text("Remember me"),
-              ],
+        const Padding(
+          padding: EdgeInsets.all(5.0),
+          child: Text(
+            "Remember me",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
-        const Spacer(),
-        if(false) Transform.translate(
-          offset: const Offset(15, 0),
-          child: TextButton(
-            onPressed: (){},
-            child: const Text(
-              "Forget Password!", 
-              style: TextStyle(color: Colors.black),
+        IgnorePointer(
+          child: Transform.scale(
+            scale: 0.75,
+            child: Switch(
+              value: _rememberMe, 
+              onChanged: (_){},
             ),
           ),
         ),
