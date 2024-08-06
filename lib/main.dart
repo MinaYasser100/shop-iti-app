@@ -22,6 +22,7 @@ void main() async {
   await HiveHelper.init();
   // await HiveHelper.resetOnboarding(); // uncomment to force show onboarding screen
   _showOnboarding = await HiveHelper.canShowOnboarding();
+  // await HiveHelper.updateToken(""); // uncomment to delete the saved token
   ConstantComponents.token = HiveHelper.getToken() ?? "";
   _initialRoute = _getInitialRoute();
   
