@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shop_iti_app/core/api/dio_api.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
-import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
 import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
-import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/carts_model/cart_item.dart';
 import 'package:shop_iti_app/login_register/cubit/login_register_cubit.dart';
 
 import 'features/layout/presentation/views/widgets/shop/presentation/manager/shop_screen_cubit/shop_screen_cubit.dart';
@@ -25,16 +22,16 @@ void main() async {
   // await HiveHelper.updateToken(""); // uncomment to delete the saved token
   ConstantComponents.token = HiveHelper.getToken() ?? "";
   _initialRoute = _getInitialRoute();
-  
+
   runApp(const MyApp());
 }
 
 String _getInitialRoute() {
-  if(_showOnboarding){
+  if (_showOnboarding) {
     return GetPages.kOnboardingView;
-  } else if(ConstantComponents.token == ""){
+  } else if (ConstantComponents.token == "") {
     return GetPages.kLoginView;
-  }else{
+  } else {
     return GetPages.kLayoutView;
   }
 }
