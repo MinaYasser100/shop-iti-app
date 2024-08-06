@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/carts_model/cart_item.dart';
 
@@ -9,6 +10,16 @@ class HiveHelper {
   static const _tokenKey = 'tokenKey';
   static const onboardingBox = 'onboardingBox';
   static const _onboardingKey = 'onboardingKey';
+
+  static Future<void> init() async {
+    await Hive.initFlutter();
+    Hive.registerAdapter(ProductItemModelAdapter());
+    Hive.registerAdapter(CartItemAdapter());
+    await Hive.openBox<ProductItemModel>(HiveHelper.productItemModelBox);
+    await Hive.openBox<CartItem>(HiveHelper.cartBox);
+    await Hive.openBox<bool>(HiveHelper.onboardingBox);
+    await Hive.openBox<String>(HiveHelper.tokenBox);
+  }
 
   static Future<void> addFavoriteProduct(ProductItemModel product) async {
     final box = Hive.box<ProductItemModel>(productItemModelBox);

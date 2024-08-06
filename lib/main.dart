@@ -14,23 +14,28 @@ import 'package:shop_iti_app/login_register/cubit/login_register_cubit.dart';
 import 'features/layout/presentation/views/widgets/shop/presentation/manager/shop_screen_cubit/shop_screen_cubit.dart';
 
 late final bool _showOnboarding;
+late final String _initialRoute;
 
 void main() async {
   DioApi.initDio();
-  await Hive.initFlutter();
-  Hive.registerAdapter(ProductItemModelAdapter());
-  Hive.registerAdapter(CartItemAdapter());
-  await Hive.openBox<ProductItemModel>(HiveHelper.productItemModelBox);
-  await Hive.openBox<CartItem>(HiveHelper.cartBox);
 
-
-  await Hive.openBox<bool>(HiveHelper.onboardingBox);
+  await HiveHelper.init();
   // await HiveHelper.resetOnboarding(); // uncomment to force show onboarding screen
   _showOnboarding = await HiveHelper.canShowOnboarding();
-  await Hive.openBox<String>(HiveHelper.tokenBox); // TODO : group in a hive init
-  ConstantComponents.token = HiveHelper.getToken() ?? ""; // TODO : add to cubit, check at start to not open login
+  ConstantComponents.token = HiveHelper.getToken() ?? "";
+  _initialRoute = _getInitialRoute();
   
   runApp(const MyApp());
+}
+
+String _getInitialRoute() {
+  if(_showOnboarding){
+    return GetPages.kOnboardingView;
+  } else if(ConstantComponents.token == ""){
+    return GetPages.kLoginView;
+  }else{
+    return GetPages.kLayoutView;
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -58,7 +63,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: _showOnboarding ? GetPages.kOnboardingView : GetPages.kLoginView, // TODO
+        initialRoute: _initialRoute,
         getPages: GetPages.getPages,
       ),
     );
