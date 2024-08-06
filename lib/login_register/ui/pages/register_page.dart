@@ -35,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailController.dispose();
     _passController.dispose();
     _pass2Controller.dispose();
-    
+
     super.dispose();
   }
 
@@ -44,7 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Register", 
+          "Register",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -54,83 +54,101 @@ class _RegisterPageState extends State<RegisterPage> {
           padding: const EdgeInsets.all(20.0),
           child: Form(
             key: _gkRegisterForm,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: ProfileAvatar(
-                    image: _imagePath == null 
-                      ? null 
-                      : AssetImage(_imagePath!),
-                    onTap: () async {
-                      final ImagePicker picker = ImagePicker();
-                      final image = await picker.pickImage(source: ImageSource.gallery);
-                      
-                      if(image != null){
-                        _imagePath = image.path;
-                        setState(() {});
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: ProfileAvatar(
+                      image:
+                          _imagePath == null ? null : AssetImage(_imagePath!),
+                      onTap: () async {
+                        final ImagePicker picker = ImagePicker();
+                        final image =
+                            await picker.pickImage(source: ImageSource.gallery);
+
+                        if (image != null) {
+                          _imagePath = image.path;
+                          setState(() {});
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  CustomTextFormField(
+                    title: "Name",
+                    controller: _nameController,
+                    validator: (v) => FieldCheck.name(v ?? "")
+                        ? null
+                        : "Enter a correct name",
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextFormField(
+                    title: "Phone number",
+                    controller: _phoneNumController,
+                    validator: (v) => FieldCheck.phoneNum(v ?? "")
+                        ? null
+                        : "Enter a correct phone number",
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextFormField(
+                    title: "Email Address",
+                    controller: _emailController,
+                    validator: (v) => FieldCheck.email(v ?? "")
+                        ? null
+                        : "Enter a correct email",
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextFormField(
+                    title: "Password",
+                    controller: _passController,
+                    isPassField: true,
+                    validator: (v) => FieldCheck.password(v ?? "")
+                        ? null
+                        : "Enter a password",
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextFormField(
+                    title: "Confirm password",
+                    controller: _pass2Controller,
+                    isPassField: true,
+                    validator: (v) =>
+                        _pass2Controller.text == _passController.text
+                            ? null
+                            : "Passwords do NOT match",
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SubmitFormButton(
+                    title: "Register",
+                    onTap: () {
+                      if (_gkRegisterForm.currentState?.validate() ?? false) {
+                        context.read<UserCubit>().register(
+                              name: _nameController.text,
+                              phoneNum: _phoneNumController.text,
+                              email: _emailController.text,
+                              password: _passController.text,
+                              imagePath: _imagePath,
+                            );
                       }
                     },
                   ),
-                ),
-                const SizedBox(height: 15,),
-                CustomTextFormField(
-                  title: "Name",
-                  controller: _nameController,
-                  validator: (v) => FieldCheck.name(v ?? "")
-                    ? null
-                    : "Enter a correct name",
-                ),
-                const SizedBox(height: 20,),
-                CustomTextFormField(
-                  title: "Phone number",
-                  controller: _phoneNumController,
-                  validator: (v) => FieldCheck.phoneNum(v ?? "")
-                    ? null
-                    : "Enter a correct phone number",
-                ),
-                const SizedBox(height: 20,),
-                CustomTextFormField(
-                  title: "Email Address",
-                  controller: _emailController,
-                  validator: (v) => FieldCheck.email(v ?? "")
-                    ? null
-                    : "Enter a correct email",
-                ),
-                const SizedBox(height: 20,),
-                CustomTextFormField(
-                  title: "Password",
-                  controller: _passController,
-                  isPassField: true,
-                  validator: (v) => FieldCheck.password(v ?? "")
-                    ? null
-                    : "Enter a password",
-                ),
-                const SizedBox(height: 20,),
-                CustomTextFormField(
-                  title: "Confirm password",
-                  controller: _pass2Controller,
-                  isPassField: true,
-                  validator: (v) => _pass2Controller.text == _passController.text
-                    ? null
-                    : "Passwords do NOT match",
-                ),
-                const SizedBox(height: 20,),
-                SubmitFormButton(
-                  title: "Register",
-                  onTap: (){
-                    if(_gkRegisterForm.currentState?.validate() ?? false){
-                        context.read<UserCubit>().register(
-                          name: _nameController.text,
-                          phoneNum: _phoneNumController.text,
-                          email: _emailController.text, 
-                          password: _passController.text, 
-                          imagePath: _imagePath,
-                        );
-                      }
-                  },
-                ),
-              ],
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

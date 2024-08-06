@@ -10,6 +10,7 @@ import 'package:shop_iti_app/login_register/cubit/state/login_register_states.da
 import 'package:shop_iti_app/login_register/models/request_models.dart';
 import 'package:shop_iti_app/login_register/models/user_models.dart';
 import 'package:shop_iti_app/login_register/utils/loading_page.dart';
+
 class UserCubit extends Cubit<BaseLogRegState> {
   UserCubit() : super(LoginPageState());
 
@@ -20,11 +21,14 @@ class UserCubit extends Cubit<BaseLogRegState> {
     required String password,
     required String? imagePath,
   }) async {
-    emit(RegisterPageState(isLoading: true,));
+    emit(RegisterPageState(
+      isLoading: true,
+    ));
 
     late final List<int>? imageBytes;
     try {
-      imageBytes = imagePath == null ? null : await File(imagePath).readAsBytes();
+      imageBytes =
+          imagePath == null ? null : await File(imagePath).readAsBytes();
     } catch (e) {
       imageBytes = null;
     }
@@ -56,10 +60,11 @@ class UserCubit extends Cubit<BaseLogRegState> {
         isLoading: false,
         msg: e.toString(),
       ));
+      print(e.toString());
       return;
     }
 
-    if(regResult.status){
+    if (regResult.status) {
       Get.offAndToNamed(GetPages.kLoginView);
       emit(LoginPageState(
         isErrorMsg: regResult.message == null ? null : false,
@@ -67,7 +72,7 @@ class UserCubit extends Cubit<BaseLogRegState> {
         msg: regResult.message,
       ));
       return;
-    }else{
+    } else {
       emit(RegisterPageState(
         isErrorMsg: regResult.message == null ? null : true,
         isLoading: false,
@@ -82,7 +87,9 @@ class UserCubit extends Cubit<BaseLogRegState> {
     required String password,
     required bool rememberMe,
   }) async {
-    emit(LoginPageState(isLoading: true,));
+    emit(LoginPageState(
+      isLoading: true,
+    ));
 
     late final LoginCredintials credintials;
     try {
@@ -111,12 +118,14 @@ class UserCubit extends Cubit<BaseLogRegState> {
       return;
     }
 
-    if(loginResult.status){
+    if (loginResult.status) {
       LoadingScreen().forcedHide();
-      ConstantComponents.token = loginResult.data != null ? loginResult.data!.token : ConstantComponents.token;
+      ConstantComponents.token = loginResult.data != null
+          ? loginResult.data!.token
+          : ConstantComponents.token;
       // TODO : remember me
       Get.toNamed(GetPages.kLayoutView);
-    }else{
+    } else {
       emit(LoginPageState(
         isErrorMsg: loginResult.message == null ? null : true,
         isLoading: false,

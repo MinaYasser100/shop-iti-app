@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
@@ -14,13 +13,15 @@ class CartBodyView extends StatefulWidget {
 class _CartBodyViewState extends State<CartBodyView> {
   List<Map<String, dynamic>> cartItems = [
     {
-      'image': 'https://www.nike.ae/dw/image/v2/BDVB_PRD/on/demandware.static/-/Sites-akeneo-master-catalog/default/dwc6d5bdfe/nk/9bc/0/1/6/b/c/9bc016bc_cd7a_49cc_a399_47930b00c59f.jpg?sw=700&sh=700&sm=fit&q=100&strip=false',
+      'image':
+          'https://www.nike.ae/dw/image/v2/BDVB_PRD/on/demandware.static/-/Sites-akeneo-master-catalog/default/dwc6d5bdfe/nk/9bc/0/1/6/b/c/9bc016bc_cd7a_49cc_a399_47930b00c59f.jpg?sw=700&sh=700&sm=fit&q=100&strip=false',
       'price': 29.99,
       'title': 'Nike Dunk Low Retro',
       'quantity': 1,
     },
     {
-      'image': 'https://telfonak.com/wp-content/uploads/2024/02/iphone15-plus.webp',
+      'image':
+          'https://telfonak.com/wp-content/uploads/2024/02/iphone15-plus.webp',
       'price': 950.0,
       'title': 'Apple iPhone 15 Plus',
       'quantity': 1,
@@ -48,7 +49,8 @@ class _CartBodyViewState extends State<CartBodyView> {
   }
 
   double _calculateSubtotal() {
-    return cartItems.fold(0, (sum, item) => sum + (item['price'] * item['quantity']));
+    return cartItems.fold(
+        0, (sum, item) => sum + (item['price'] * item['quantity']));
   }
 
   double _calculateDeliveryCharge() {
@@ -109,7 +111,8 @@ class _CartBodyViewState extends State<CartBodyView> {
               onPressed: _navigateToCheckout,
               style: ElevatedButton.styleFrom(
                 backgroundColor: ConstantComponents.firstColor,
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 100.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 100.0),
               ),
               child: Text(
                 'Go to Checkout',

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/login_register/cubit/login_register_cubit.dart';
 import 'package:shop_iti_app/login_register/cubit/state/login_register_states.dart';
-import 'package:shop_iti_app/login_register/models/request_models.dart';
 import 'package:shop_iti_app/login_register/ui/widgets/submit_form_button.dart';
 import 'package:shop_iti_app/login_register/utils/fields_checks.dart';
-import 'package:shop_iti_app/login_register/utils/loading_page.dart';
 import 'package:shop_iti_app/login_register/utils/utils.dart';
 
 import '../../../core/constant/constant.dart';
