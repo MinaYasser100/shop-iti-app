@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
-import 'package:shop_iti_app/core/styles/styles.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/favorite/presentation/manager/favorite_cubit.dart';
 
-import 'widgets/favorite_item_widget.dart';
+import 'widgets/empty_favorites_list_widget.dart';
+import 'widgets/favorite_error_widget.dart';
+import 'widgets/favorite_list_view_builder.dart';
 
 class FavoriteBodyView extends StatelessWidget {
   const FavoriteBodyView({super.key});
@@ -42,71 +43,14 @@ class FavoriteBodyView extends StatelessWidget {
             );
           } else if (state is FavoriteCubitGetFavoriteDataFailure) {
             return const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'An error occurred while fetching data',
-                    style: Styles.textStyle20Failure,
-                  ),
-                ],
-              ),
+              child: FavoriteErrorWidget(),
             );
           } else {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: context.read<FavoriteCubit>().favoriteProduct.isNotEmpty
-                  ? ListView.builder(
-                      itemCount:
-                          context.read<FavoriteCubit>().favoriteProduct.length,
-                      itemBuilder: (context, index) {
-                        final entry =
-                            context.read<FavoriteCubit>().favoriteProduct;
-
-                        return GestureDetector(
-                          onTap: () {
-                            // Get.toNamed(
-                            //   GetPages.kProductDetails,
-                            // );
-                          },
-                          child: FavoriteItemWidget(
-                            image: entry[index].image ?? '',
-                            price: entry[index].price!,
-                            title: entry[index].name ??
-                                'This product does not have a name',
-                            id: entry[index].id!.toInt(),
-                          ),
-                          // child: FavoriteItemWidget(
-                          //   image: entry[index].product!.image ?? '',
-                          //   price: entry[index].product!.price!,
-                          //   title: entry[index].product!.name ??
-                          //       'This product does not have a name',
-                          //   id: entry[index].product!.id!.toInt(),
-                          // ),
-                        );
-                      },
-                    )
-                  : const Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.favorite_border_rounded,
-                      size: 100.0,
-                      color: ConstantComponents.firstColor,
-                    ),
-                    SizedBox(height: 20.0),
-                    Text(
-                      'Add to Favorites',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                    ),
+                  ? const FavoriteListViewBuilder()
+                  : const EmptyFavoritesListWidget(),
             );
           }
         }),
