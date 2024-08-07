@@ -8,10 +8,9 @@ import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
 import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/favorite_model/favorite_model.dart';
-
 import '../../../shop/data/model/favorite_model/datum.dart';
-
 part 'favorite_states.dart';
+
 
 class FavoriteCubit extends Cubit<FavortieStates> {
   FavoriteCubit() : super(FavoriteCubitInitial());

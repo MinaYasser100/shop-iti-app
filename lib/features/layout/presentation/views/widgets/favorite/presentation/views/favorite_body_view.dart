@@ -5,12 +5,13 @@ import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/favorite/presentation/manager/favorite_cubit.dart';
 
+
 class FavoriteBodyView extends StatefulWidget {
   const FavoriteBodyView({super.key});
-
   @override
   _FavoriteBodyViewState createState() => _FavoriteBodyViewState();
 }
+
 
 class _FavoriteBodyViewState extends State<FavoriteBodyView> {
   @override

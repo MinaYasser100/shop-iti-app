@@ -79,7 +79,7 @@ class _CartBodyViewState extends State<CartBodyView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ConstantComponents.firstColor,
-        title: Text(
+        title: const Text(
           'Cart Items',
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -114,7 +114,7 @@ class _CartBodyViewState extends State<CartBodyView> {
                 padding: const EdgeInsets.symmetric(
                     vertical: 15.0, horizontal: 100.0),
               ),
-              child: Text(
+              child: const Text(
                 'Go to Checkout',
                 style: TextStyle(
                   fontSize: 18.0,
@@ -183,22 +183,22 @@ class _CartBodyViewState extends State<CartBodyView> {
                   children: [
                     IconButton(
                       onPressed: () => _decrementQuantity(index),
-                      icon: Icon(Icons.remove_circle_outline),
+                      icon: const Icon(Icons.remove_circle_outline),
                     ),
                     Text(
                       '$quantity',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                       ),
                     ),
                     IconButton(
                       onPressed: () => _incrementQuantity(index),
-                      icon: Icon(Icons.add_circle_outline),
+                      icon: const Icon(Icons.add_circle_outline),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
                       onPressed: () => _removeItem(index),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.delete,
                         color: ConstantComponents.firstColor,
                       ),
