@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
 import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
 import 'package:shop_iti_app/user_handling/ui/widgets/custom_text_field.dart';
-import 'package:shop_iti_app/user_handling/ui/widgets/profile_avatar.dart';
 import 'package:shop_iti_app/user_handling/ui/widgets/submit_form_button.dart';
 import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
 import 'package:shop_iti_app/user_handling/utils/utils.dart';
@@ -23,8 +21,6 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   final _newPassController = TextEditingController();
   final _confirmNewPassController = TextEditingController();
 
-  String? _imagePath;
-
   @override
   void dispose() {
     _currentPassController.dispose();
@@ -33,7 +29,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
 
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,11 +77,12 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                 SubmitFormButton(
                   title: "Update",
                   onTap: () {
-                    if (_gkUpdatePasswordForm.currentState?.validate() ?? false) {
+                    if (_gkUpdatePasswordForm.currentState?.validate() ??
+                        false) {
                       context.read<UserCubit>().changePassword(
-                        currentPassword: _currentPassController.text,
-                        newPassword: _newPassController.text,
-                      );
+                            currentPassword: _currentPassController.text,
+                            newPassword: _newPassController.text,
+                          );
                     }
                   },
                 ),

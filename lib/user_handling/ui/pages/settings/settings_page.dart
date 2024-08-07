@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
 import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
 import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
-import 'package:shop_iti_app/user_handling/ui/widgets/custom_text_field.dart';
 import 'package:shop_iti_app/user_handling/ui/widgets/profile_avatar.dart';
 import 'package:shop_iti_app/user_handling/ui/widgets/submit_form_button.dart';
-import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
 import 'package:shop_iti_app/user_handling/utils/utils.dart';
 
 const _listTileShape = RoundedRectangleBorder(
@@ -53,7 +50,8 @@ class SettingsPage extends StatelessWidget {
                       title: const Text("Personal Information"),
                       trailing: const Icon(Icons.navigate_next),
                       shape: _listTileShape,
-                      onTap: () => context.read<UserCubit>().toUpdateProfilePage(),
+                      onTap: () =>
+                          context.read<UserCubit>().toUpdateProfilePage(),
                     ),
                     const Divider(),
                     ListTile(
@@ -88,29 +86,33 @@ class SettingsPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BlocBuilder<UserCubit, BaseUserState>(
-              buildWhen: (previous, current) => 
-                current is LoggedInState  
-                && previous is LoggedInState
-                && current.user.imageUrl != previous.user.imageUrl,
+              buildWhen: (previous, current) =>
+                  current is LoggedInState &&
+                  previous is LoggedInState &&
+                  current.user.imageUrl != previous.user.imageUrl,
               builder: (context, state) => ProfileAvatar(
-                image: state is! LoggedInState ? null : NetworkImage(state.user.imageUrl),
+                image: state is! LoggedInState
+                    ? null
+                    : NetworkImage(state.user.imageUrl),
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             BlocBuilder<UserCubit, BaseUserState>(
-              buildWhen: (previous, current) => 
-                current is LoggedInState  
-                && previous is LoggedInState
-                && current.user.name != previous.user.name,
-              builder: (context, state) => state is! LoggedInState 
-                ? const SizedBox.shrink() 
-                : Text(
-                state.user.name,
-                style: const TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
+              buildWhen: (previous, current) =>
+                  current is LoggedInState &&
+                  previous is LoggedInState &&
+                  current.user.name != previous.user.name,
+              builder: (context, state) => state is! LoggedInState
+                  ? const SizedBox.shrink()
+                  : Text(
+                      state.user.name,
+                      style: const TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
             ),
           ],
         ),
