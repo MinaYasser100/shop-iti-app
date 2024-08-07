@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
+import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
 
 import '../../manager/favorite_cubit.dart';
 import 'favorite_item_widget.dart';
@@ -24,7 +25,7 @@ class FavoriteListViewBuilder extends StatelessWidget {
             onTap: () {
               Get.toNamed(
                 GetPages.kProductDetails,
-                arguments: entry[index],
+                arguments: entry[index] as ProductItemModel,
               );
             },
             child: FavoriteItemWidget(
