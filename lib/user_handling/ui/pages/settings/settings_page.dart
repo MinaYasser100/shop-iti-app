@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
+import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
 import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
 import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
 import 'package:shop_iti_app/user_handling/ui/widgets/profile_avatar.dart';
@@ -67,10 +68,12 @@ class SettingsPage extends StatelessWidget {
               ),
               const Spacer(),
               SubmitFormButton(
-                title: "Logout",
-                bgColor: Colors.red,
-                onTap: () => context.read<UserCubit>().logout(),
-              ),
+                  title: "Logout",
+                  bgColor: Colors.red,
+                  onTap: () {
+                    context.read<UserCubit>().logout();
+                    context.read<LayoutScreenCubit>().currentIndex = 0;
+                  }),
             ],
           ),
         ),
