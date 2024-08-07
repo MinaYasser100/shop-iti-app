@@ -98,7 +98,9 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ProfileAvatar(
-                    image: _imagePath == null ? null : AssetImage(_imagePath!),
+                    image: _imagePath == null 
+                      ? null 
+                      : (_imagePath!.startsWith("https://") ? NetworkImage(_imagePath!) : AssetImage(_imagePath!)),
                     onTap: !_updateMode ? null : _onEditProfileAvatar,
                   ),
                   const SizedBox(

@@ -65,7 +65,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     Center(
                       child: ProfileAvatar(
                         image:
-                            _imagePath == null ? null : AssetImage(_imagePath!),
+                            _imagePath == null 
+                              ? null 
+                              : (_imagePath!.startsWith("https://") ? NetworkImage(_imagePath!) : AssetImage(_imagePath!)),
                         onTap: () async {
                           final ImagePicker picker = ImagePicker();
                           final image =

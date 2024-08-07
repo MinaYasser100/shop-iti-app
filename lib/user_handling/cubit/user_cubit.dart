@@ -127,7 +127,7 @@ class UserCubit extends Cubit<BaseUserState> {
       LoadingScreen().forcedHide();
 
       emit(LoggedInState(
-        isErrorMsg: loginResult.message == null ? null : true,
+        isErrorMsg: loginResult.message == null ? null : false,
         isLoading: false,
         msg: loginResult.message,
         user: loginResult.data!,

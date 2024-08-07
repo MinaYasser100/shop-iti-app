@@ -17,8 +17,6 @@ import 'features/layout/presentation/views/widgets/shop/presentation/manager/sho
 late final bool _showOnboarding;
 late final String _initialRoute;
 late final BaseUserState _initialUserState;
-// TODO : login done success apears as error msg.
-// TODO : image do NOT load or upload.
 // TODO : check error handling.
 // TODO : make appbar transparent.
 void main() async {
@@ -95,7 +93,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: GetPages.kSettingsView,
+        initialRoute: _initialRoute,
         getPages: GetPages.getPages,
       ),
     );

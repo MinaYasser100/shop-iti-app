@@ -93,7 +93,7 @@ class SettingsPage extends StatelessWidget {
                 && previous is LoggedInState
                 && current.user.imageUrl != previous.user.imageUrl,
               builder: (context, state) => ProfileAvatar(
-                image: state is! LoggedInState ? null : AssetImage(state.user.imageUrl),
+                image: state is! LoggedInState ? null : NetworkImage(state.user.imageUrl),
               ),
             ),
             const SizedBox(height: 10,),
