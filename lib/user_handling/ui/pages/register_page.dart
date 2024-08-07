@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shop_iti_app/login_register/cubit/login_register_cubit.dart';
-import 'package:shop_iti_app/login_register/cubit/state/login_register_states.dart';
-import 'package:shop_iti_app/login_register/ui/widgets/page_title.dart';
-import 'package:shop_iti_app/login_register/ui/widgets/profile_avatar.dart';
-import 'package:shop_iti_app/login_register/ui/widgets/submit_form_button.dart';
-import 'package:shop_iti_app/login_register/utils/fields_checks.dart';
-import 'package:shop_iti_app/login_register/utils/utils.dart';
+import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
+import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
+import 'package:shop_iti_app/user_handling/ui/widgets/page_title.dart';
+import 'package:shop_iti_app/user_handling/ui/widgets/profile_avatar.dart';
+import 'package:shop_iti_app/user_handling/ui/widgets/submit_form_button.dart';
+import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
+import 'package:shop_iti_app/user_handling/utils/utils.dart';
 
 import '../widgets/custom_text_field.dart';
 
@@ -46,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
-      body: BlocListener<UserCubit, BaseLogRegState>(
+      body: BlocListener<UserCubit, BaseUserState>(
         listener: userCubitListner,
         child: Center(
           child: Padding(

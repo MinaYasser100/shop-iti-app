@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_iti_app/login_register/cubit/state/login_register_states.dart';
-import 'package:shop_iti_app/login_register/utils/loading_page.dart';
+import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
+import 'package:shop_iti_app/user_handling/utils/loading_page.dart';
 
 typedef JSON = Map<String, dynamic>;
 
@@ -8,7 +8,7 @@ mixin Jsonable {
   JSON toJson();
 }
 
-void userCubitListner(BuildContext context, BaseLogRegState state) {
+void userCubitListner(BuildContext context, BaseUserState state) {
   if (state.isLoading) {
     LoadingScreen().show(context, LoadingScreen().getCode());
   } else {

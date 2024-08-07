@@ -1,9 +1,10 @@
-import 'package:shop_iti_app/login_register/models/request_models.dart';
-import 'package:shop_iti_app/login_register/utils/fields_checks.dart';
+import 'package:equatable/equatable.dart';
+import 'package:shop_iti_app/user_handling/models/request_models.dart';
+import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
 
 import '../utils/utils.dart';
 
-abstract class BaseUser with Jsonable{
+abstract class BaseUser with Jsonable, EquatableMixin{
   final String name;
   final LoginCredintials _credintials;
   final String phoneNum;
@@ -33,6 +34,13 @@ abstract class BaseUser with Jsonable{
     ..._credintials.toJson(),
     "phone": phoneNum,
   };
+
+  @override
+  List<Object?> get props => [
+    name,
+    phoneNum,
+    _credintials,
+  ];
 }
 
 class ActiveUser extends BaseUser{
@@ -75,5 +83,15 @@ class ActiveUser extends BaseUser{
     "credit": credit,
     "token": token,
   };
+
+  @override
+  List<Object?> get props => [
+    ...super.props,
+    id,
+    imageUrl,
+    points,
+    credit,
+    token,
+  ];
 }
 

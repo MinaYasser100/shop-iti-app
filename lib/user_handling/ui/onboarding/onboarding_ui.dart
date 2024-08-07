@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
-import 'package:shop_iti_app/login_register/ui/onboarding/onbording_content_model.dart';
+import 'package:shop_iti_app/user_handling/ui/onboarding/onbording_content_model.dart';
 
 class Onbording extends StatefulWidget {
   const Onbording({super.key});
