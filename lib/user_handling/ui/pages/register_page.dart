@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shop_iti_app/login_register/cubit/login_register_cubit.dart';
-import 'package:shop_iti_app/login_register/cubit/state/login_register_states.dart';
-import 'package:shop_iti_app/login_register/ui/widgets/page_title.dart';
-import 'package:shop_iti_app/login_register/ui/widgets/profile_avatar.dart';
-import 'package:shop_iti_app/login_register/ui/widgets/submit_form_button.dart';
-import 'package:shop_iti_app/login_register/utils/fields_checks.dart';
-import 'package:shop_iti_app/login_register/utils/utils.dart';
+import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
+import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
+import 'package:shop_iti_app/user_handling/ui/widgets/page_title.dart';
+import 'package:shop_iti_app/user_handling/ui/widgets/profile_avatar.dart';
+import 'package:shop_iti_app/user_handling/ui/widgets/submit_form_button.dart';
+import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
+import 'package:shop_iti_app/user_handling/utils/utils.dart';
 
 import '../widgets/custom_text_field.dart';
 
@@ -45,8 +45,10 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
       ),
-      body: BlocListener<UserCubit, BaseLogRegState>(
+      body: BlocListener<UserCubit, BaseUserState>(
         listener: userCubitListner,
         child: Center(
           child: Padding(
@@ -65,7 +67,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     Center(
                       child: ProfileAvatar(
                         image:
-                            _imagePath == null ? null : AssetImage(_imagePath!),
+                            _imagePath == null 
+                              ? null 
+                              : (_imagePath!.startsWith("https://") ? NetworkImage(_imagePath!) : AssetImage(_imagePath!)),
                         onTap: () async {
                           final ImagePicker picker = ImagePicker();
                           final image =
@@ -85,34 +89,26 @@ class _RegisterPageState extends State<RegisterPage> {
                       title: "Name",
                       controller: _nameController,
                       prefixIcon: const Icon(Icons.person),
-                      validator: (v) => FieldCheck.name(v ?? "")
-                          ? null
-                          : "Enter a correct name",
+                      validator: (v) => FieldCheck.name(v ?? ""),
                     ),
                     CustomTextFormField(
                       title: "Phone number",
                       controller: _phoneNumController,
                       prefixIcon: const Icon(Icons.phone),
-                      validator: (v) => FieldCheck.phoneNum(v ?? "")
-                          ? null
-                          : "Enter a correct phone number",
+                      validator: (v) => FieldCheck.phoneNum(v ?? ""),
                     ),
                     CustomTextFormField(
                       title: "Email Address",
                       controller: _emailController,
                       prefixIcon: const Icon(Icons.email),
-                      validator: (v) => FieldCheck.email(v ?? "")
-                          ? null
-                          : "Enter a correct email",
+                      validator: (v) => FieldCheck.email(v ?? ""),
                     ),
                     CustomTextFormField(
                       title: "Password",
                       controller: _passController,
                       prefixIcon: const Icon(Icons.lock),
                       isPassField: true,
-                      validator: (v) => FieldCheck.password(v ?? "")
-                          ? null
-                          : "Enter a password",
+                      validator: (v) => FieldCheck.password(v ?? ""),
                     ),
                     CustomTextFormField(
                       title: "Confirm password",

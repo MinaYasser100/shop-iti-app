@@ -7,4 +7,6 @@ class DioEndPoint {
   static const dioRegister = 'register';
   static const dioLogout = 'logout';
   static const dioChangePass = 'change-password';
+  static const dioProfile = 'profile';
+  static const dioUpdateProfile = 'update-profile';
 }

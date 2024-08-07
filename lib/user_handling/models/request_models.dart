@@ -1,19 +1,20 @@
 import 'dart:convert';
 
-import 'package:shop_iti_app/login_register/utils/fields_checks.dart';
+import 'package:equatable/equatable.dart';
+import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
 
 import '../utils/utils.dart';
 import 'user_models.dart';
 
-class LoginCredintials with Jsonable{
+class LoginCredintials with Jsonable, EquatableMixin{
   final String email;
   final String? password;
   LoginCredintials({
     required this.email,
     this.password,
   }) : 
-    assert(password == null ? true : FieldCheck.password(password)),
-    assert(FieldCheck.email(email));
+    assert(password == null ? true : (FieldCheck.password(password) == null)),
+    assert(FieldCheck.email(email) == null);
 
   factory LoginCredintials.create({
     required String email,
@@ -30,18 +31,31 @@ class LoginCredintials with Jsonable{
   @override
   JSON toJson() => {
     "email": email,
-    "password": password,
+    if(password != null) "password": password,
   };
+
+  @override
+  List<Object?> get props => [
+    email,
+    password,
+  ];
 }
 
-class RegisterUserRequest extends BaseUser{
+class UserProfileDataRequest extends BaseUser{
   final List<int>? imageBytes;
 
-  RegisterUserRequest({
+  UserProfileDataRequest({
     required super.name,
     required super.email,
     required super.phoneNum,
     required String super.password,
+    this.imageBytes,
+  });
+
+  UserProfileDataRequest.update({
+    required super.name,
+    required super.email,
+    required super.phoneNum,
     this.imageBytes,
   });
 
@@ -63,7 +77,7 @@ class ChangePasswordRequest with Jsonable{
     required this.currentPassword,
     required this.newPassword,
   }) : 
-    assert(FieldCheck.password(currentPassword) && FieldCheck.password(newPassword));
+    assert(FieldCheck.password(currentPassword) == null && FieldCheck.password(newPassword) == null);
 
   @override
   JSON toJson() => {

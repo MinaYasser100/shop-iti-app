@@ -6,6 +6,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final bool isPassField;
   final Widget? prefixIcon;
+  final bool readOnly;
   const CustomTextFormField({
     super.key,
     required this.title,
@@ -13,6 +14,7 @@ class CustomTextFormField extends StatefulWidget {
     this.validator,
     this.isPassField = false,
     this.prefixIcon,
+    this.readOnly = false,
   });
 
   @override
@@ -35,6 +37,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               validator: widget.validator,
               controller: widget.controller,
               obscureText: widget.isPassField && !_isPassShown,
+              readOnly: widget.readOnly,
               decoration: InputDecoration(
                 filled: true,
                 border: OutlineInputBorder(
