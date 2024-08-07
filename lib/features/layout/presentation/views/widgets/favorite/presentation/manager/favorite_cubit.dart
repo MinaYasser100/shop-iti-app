@@ -18,14 +18,6 @@ class FavoriteCubit extends Cubit<FavortieStates> {
   void getFavoriteData() async {
     emit(FavoriteCubitGetFavoriteDataLoading());
     try {
-      // Response response = await DioApi.getData(
-      //   endPoint: DioEndPoint.dioFavorites,
-      //   token: ConstantComponents.token,
-      // );
-      // if (response.statusCode == 200) {
-      //   FavoriteModel favoriteModel = FavoriteModel.fromJson(response.data);
-      //   favoriteProduct = favoriteModel.data!.data!;
-      // }
       favoriteProduct = HiveHelper.getFavoriteProducts();
       emit(FavoriteCubitGetFavoriteDataSuccess());
     } catch (e) {

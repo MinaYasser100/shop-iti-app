@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/features/layout/presentation/views/widgets/cart/presentation/manager/cart_cubit.dart';
 import 'checkout_summary_view.dart';
 
 class CartBodyView extends StatefulWidget {
@@ -89,51 +91,38 @@ class _CartBodyViewState extends State<CartBodyView> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: cartItems.length,
-              itemBuilder: (context, index) {
-                return buildCartItem(
-                  image: cartItems[index]['image'],
-                  price: cartItems[index]['price'],
-                  title: cartItems[index]['title'],
-                  quantity: cartItems[index]['quantity'],
-                  index: index,
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ElevatedButton(
-              onPressed: _navigateToCheckout,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: ConstantComponents.firstColor,
-                padding: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 100.0),
-              ),
-              child: const Text(
-                'Go to Checkout',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ],
+      body: BlocBuilder<CartCubit,CartStates>(
+        builder: (context,state) {
+          if( State is CartCubitGetCartDataLoading)
+            {          return Center(
+            child : CircularProgressIndicator(),
+            );
+        }else if(state is CartCubitGetCartDataSuccess){
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: context.read<CartCubit>().cartproduct.asMap().entries
+              .map(cartItems) => buildCartItem(
+              image:entry,
+              price: cartItems[index]['price'],
+              title: cartItems[index]['title'],
+              quantity: cartItems[index]['quantity'],
+              //index: index,
+            )
+            );
+
+
+          }
+    }
       ),
     );
   }
 
   Widget buildCartItem({
     required String image,
-    required double price,
+    required num price,
     required String title,
-    required int quantity,
-    required int index,
+    required num quantity,
+    //required int index,
   }) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -207,6 +196,7 @@ class _CartBodyViewState extends State<CartBodyView> {
                 ),
               ],
             ),
+
           ),
         ],
       ),
@@ -217,6 +207,47 @@ class _CartBodyViewState extends State<CartBodyView> {
 
 
 /*
+
+
+Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: cartItems.length,
+                  itemBuilder: (context, index) {
+                    return buildCartItem(
+                      image: cartItems[index]['image'],
+                      price: cartItems[index]['price'],
+                      title: cartItems[index]['title'],
+                      quantity: cartItems[index]['quantity'],
+                      index: index,
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  onPressed: _navigateToCheckout,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ConstantComponents.firstColor,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15.0, horizontal: 100.0),
+                  ),
+                  child: const Text(
+                    'Go to Checkout',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
