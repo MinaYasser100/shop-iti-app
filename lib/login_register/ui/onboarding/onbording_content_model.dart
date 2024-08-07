@@ -2,39 +2,31 @@ class OnboardingContent {
   final String image;
   final String title;
   final String discription;
-  final String background;
 
   const OnboardingContent({
-    required this.image, 
-    required this.title, 
+    required this.image,
+    required this.title,
     required this.discription,
-    required this.background,
   });
 
   static const all = [
     OnboardingContent(
-      title:"Donuts" ,
-      image: 'assets/onboarding/images/don.png',
-      discription: "Made by hand , from \n "
-                          "scratch \n "
-                          " with love\n  ",
-      background:'assets/onboarding/images/b1.png',
+      title: "Shopping Online",
+      image: 'assets/anim/woman.jpg',
+      discription:
+          "Shop the latest trends and find exclusive deals from the comfort of your home.",
     ),
     OnboardingContent(
-      title: 'piece of cake',
-      image: 'assets/onboarding/images/cake.png',
-      discription: "Made by hand , from \n "
-          "scratch \n "
-          " with love\n  ",
-      background: 'assets/onboarding/images/b2.png',
+      title: 'Order Shopping',
+      image: 'assets/anim/online-shopping.jpg',
+      discription:
+          "Browse products, add to cart, and enjoy secure, hassle-free checkout.",
     ),
     OnboardingContent(
-      title: 'Milkshake',
-      image: 'assets/onboarding/images/milk.png',
-      discription:"Made by hand , from \n "
-          "scratch \n "
-          " with love\n  ",
-      background: 'assets/onboarding/images/b3.png',
+      title: 'Finish Shopping',
+      image: 'assets/anim/woman-shopping.jpg',
+      discription:
+          "Track your orders and get fast, reliable delivery straight to your door.",
     ),
   ];
 }
