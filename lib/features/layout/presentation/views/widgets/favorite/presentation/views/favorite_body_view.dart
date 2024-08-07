@@ -9,7 +9,6 @@ import 'widgets/favorite_item_widget.dart';
 
 class FavoriteBodyView extends StatefulWidget {
   const FavoriteBodyView({super.key});
-
   @override
   _FavoriteBodyViewState createState() => _FavoriteBodyViewState();
 }
