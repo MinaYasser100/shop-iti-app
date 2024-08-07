@@ -84,15 +84,25 @@ class _FavoriteBodyViewState extends State<FavoriteBodyView> {
                       },
                     )
                   : const Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'No favorites items',
-                            style: Styles.textStyle24,
-                          ),
-                        ],
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.favorite_border_rounded,
+                      size: 100.0,
+                      color: ConstantComponents.firstColor,
+                    ),
+                    SizedBox(height: 20.0),
+                    Text(
+                      'Add to Favorites',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
+                    ),
+                  ],
+                ),
                     ),
             );
           }
