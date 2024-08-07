@@ -24,9 +24,7 @@ class FavoriteCubit extends Cubit<FavortieStates> {
       );
       if (response.statusCode == 200) {
         FavoriteModel favoriteModel = FavoriteModel.fromJson(response.data);
-        if (favoriteModel.data!.data!.isNotEmpty) {
-          favoriteProduct = favoriteModel.data!.data!;
-        }
+        favoriteProduct = favoriteModel.data!.data!;
       }
       emit(FavoriteCubitGetFavoriteDataSuccess());
     } catch (e) {
