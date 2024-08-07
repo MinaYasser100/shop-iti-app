@@ -45,6 +45,8 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
       ),
       body: BlocListener<UserCubit, BaseUserState>(
         listener: userCubitListner,
@@ -87,34 +89,26 @@ class _RegisterPageState extends State<RegisterPage> {
                       title: "Name",
                       controller: _nameController,
                       prefixIcon: const Icon(Icons.person),
-                      validator: (v) => FieldCheck.name(v ?? "")
-                          ? null
-                          : "Enter a correct name",
+                      validator: (v) => FieldCheck.name(v ?? ""),
                     ),
                     CustomTextFormField(
                       title: "Phone number",
                       controller: _phoneNumController,
                       prefixIcon: const Icon(Icons.phone),
-                      validator: (v) => FieldCheck.phoneNum(v ?? "")
-                          ? null
-                          : "Enter a correct phone number",
+                      validator: (v) => FieldCheck.phoneNum(v ?? ""),
                     ),
                     CustomTextFormField(
                       title: "Email Address",
                       controller: _emailController,
                       prefixIcon: const Icon(Icons.email),
-                      validator: (v) => FieldCheck.email(v ?? "")
-                          ? null
-                          : "Enter a correct email",
+                      validator: (v) => FieldCheck.email(v ?? ""),
                     ),
                     CustomTextFormField(
                       title: "Password",
                       controller: _passController,
                       prefixIcon: const Icon(Icons.lock),
                       isPassField: true,
-                      validator: (v) => FieldCheck.password(v ?? "")
-                          ? null
-                          : "Enter a password",
+                      validator: (v) => FieldCheck.password(v ?? ""),
                     ),
                     CustomTextFormField(
                       title: "Confirm password",

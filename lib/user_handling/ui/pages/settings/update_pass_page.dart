@@ -39,6 +39,8 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
       ),
       body: BlocListener<UserCubit, BaseUserState>(
         listener: userCubitListner,
@@ -54,18 +56,14 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   controller: _currentPassController,
                   prefixIcon: const Icon(Icons.lock),
                   isPassField: true,
-                  validator: (v) => FieldCheck.password(v ?? "")
-                      ? null
-                      : "Enter the current password",
+                  validator: (v) => FieldCheck.password(v ?? ""),
                 ),
                 CustomTextFormField(
                   title: "New password",
                   controller: _newPassController,
                   prefixIcon: const Icon(Icons.lock),
                   isPassField: true,
-                  validator: (v) => FieldCheck.password(v ?? "")
-                      ? null
-                      : "Enter new password",
+                  validator: (v) => FieldCheck.password(v ?? ""),
                 ),
                 CustomTextFormField(
                   title: "Confirm new password",

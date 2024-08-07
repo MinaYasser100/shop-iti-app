@@ -83,7 +83,9 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+                  backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         ),
         body: BlocListener<UserCubit, BaseUserState>(
           listener: (context, state) {
@@ -110,27 +112,21 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
                     title: "Name",
                     controller: _nameController,
                     prefixIcon: const Icon(Icons.person),
-                    validator: (v) => FieldCheck.name(v ?? "")
-                        ? null
-                        : "Enter a correct name",
+                    validator: (v) => FieldCheck.name(v ?? ""),
                     readOnly: !_updateMode,
                   ),
                   CustomTextFormField(
                     title: "Phone number",
                     controller: _phoneNumController,
                     prefixIcon: const Icon(Icons.phone),
-                    validator: (v) => FieldCheck.phoneNum(v ?? "")
-                        ? null
-                        : "Enter a correct phone number",
+                    validator: (v) => FieldCheck.phoneNum(v ?? ""),
                     readOnly: !_updateMode,
                   ),
                   CustomTextFormField(
                     title: "Email Address",
                     controller: _emailController,
                     prefixIcon: const Icon(Icons.email),
-                    validator: (v) => FieldCheck.email(v ?? "")
-                        ? null
-                        : "Enter a correct email",
+                    validator: (v) => FieldCheck.email(v ?? ""),
                     readOnly: !_updateMode,
                   ),
                   const Spacer(),

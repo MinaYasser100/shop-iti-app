@@ -17,15 +17,12 @@ import 'features/layout/presentation/views/widgets/shop/presentation/manager/sho
 late final bool _showOnboarding;
 late final String _initialRoute;
 late final BaseUserState _initialUserState;
-// TODO : check error handling.
-// TODO : make appbar transparent.
 void main() async {
   DioApi.initDio();
 
   await HiveHelper.init();
   // await HiveHelper.resetOnboarding(); // uncomment to force show onboarding screen
   _showOnboarding = await HiveHelper.canShowOnboarding();
-  // await HiveHelper.updateToken(""); // uncomment to delete the saved token
   ConstantComponents.token = HiveHelper.getToken() ?? "";
   _initialUserState = await _checkTokenLogic();
   _initialRoute = _getInitialRoute();

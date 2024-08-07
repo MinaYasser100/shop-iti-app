@@ -56,18 +56,14 @@ class _LoginPageState extends State<LoginPage> {
                     title: "Email Address",
                     controller: _emailController,
                     prefixIcon: const Icon(Icons.email),
-                    validator: (v) => FieldCheck.email(v ?? "")
-                      ? null
-                      : "Enter a correct email",
+                    validator: (v) => FieldCheck.email(v ?? ""),
                   ),
                   CustomTextFormField(
                     title: "Password",
                     controller: _passController,
                     prefixIcon: const Icon(Icons.lock),
                     isPassField: true,
-                    validator: (v) => FieldCheck.password(v ?? "")
-                      ? null
-                      : "Enter a password",
+                    validator: (v) => FieldCheck.password(v ?? ""),
                   ),
                   Center(child: _rememberMeAndForgetPass()),
                   const SizedBox(height: 20,),

@@ -1,14 +1,16 @@
 abstract class FieldCheck{
   const FieldCheck._();
-  static bool email(String value) => 
-    RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(value);
+  static String? email(String value) => 
+    RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(value) 
+    ? null 
+    : "Enter a valid email";
 
-  static bool password(String value) => 
-    value.isNotEmpty;
+  static String? password(String value) => 
+    value.length > 5 ? null : "Password must be at least 6 character";
   
-  static bool name(String value) => 
-    value.trim().isNotEmpty;
+  static String? name(String value) => 
+    value.trim().isNotEmpty ? null : "Enter a valid name";
 
-  static bool phoneNum(String value) => 
-    value.trim().isNotEmpty && RegExp(r"^\+?[0-9]+$").hasMatch(value);
+  static String? phoneNum(String value) => 
+    RegExp(r"^\+?[0-9]+$").hasMatch(value) ? null : "Enter a valid phone number";
 }

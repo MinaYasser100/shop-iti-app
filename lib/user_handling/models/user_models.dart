@@ -18,8 +18,8 @@ abstract class BaseUser with Jsonable, EquatableMixin{
     String? password,
     required this.phoneNum,
   }) : 
-    assert(FieldCheck.name(name)),
-    assert(FieldCheck.phoneNum(phoneNum)),
+    assert(FieldCheck.name(name) == null),
+    assert(FieldCheck.phoneNum(phoneNum) == null),
     name = name.trim().replaceAll(RegExp(r"\s+")," "),
     _credintials = LoginCredintials(email: email, password: password,);
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
 import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
 import 'package:shop_iti_app/user_handling/utils/loading_page.dart';
 
@@ -16,16 +17,12 @@ void userCubitListner(BuildContext context, BaseUserState state) {
   }
 
   if (state.msg != null && state.isErrorMsg != null) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          state.msg!,
-          style: TextStyle(
-            color: state.isErrorMsg == true ? Colors.red : Colors.green,
-          ),
-        ),
-      ),
+    customSnackBar(
+      text: state.isErrorMsg == false ? "Succeded" : "Error",
+      subTitle: state.msg!,
+      color: state.isErrorMsg == true ? Colors.redAccent.shade700 : Colors.greenAccent.shade700,
     );
+
     state.isErrorMsg = null;
     state.msg = null;
   }

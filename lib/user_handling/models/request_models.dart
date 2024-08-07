@@ -13,8 +13,8 @@ class LoginCredintials with Jsonable, EquatableMixin{
     required this.email,
     this.password,
   }) : 
-    assert(password == null ? true : FieldCheck.password(password)),
-    assert(FieldCheck.email(email));
+    assert(password == null ? true : (FieldCheck.password(password) == null)),
+    assert(FieldCheck.email(email) == null);
 
   factory LoginCredintials.create({
     required String email,
@@ -77,7 +77,7 @@ class ChangePasswordRequest with Jsonable{
     required this.currentPassword,
     required this.newPassword,
   }) : 
-    assert(FieldCheck.password(currentPassword) && FieldCheck.password(newPassword));
+    assert(FieldCheck.password(currentPassword) == null && FieldCheck.password(newPassword) == null);
 
   @override
   JSON toJson() => {
