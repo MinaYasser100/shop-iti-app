@@ -4,18 +4,18 @@ import 'package:shop_iti_app/login_register/utils/loading_page.dart';
 
 typedef JSON = Map<String, dynamic>;
 
-mixin Jsonable{
+mixin Jsonable {
   JSON toJson();
 }
 
 void userCubitListner(BuildContext context, BaseLogRegState state) {
-  if(state.isLoading){
+  if (state.isLoading) {
     LoadingScreen().show(context, LoadingScreen().getCode());
-  }else{
-    LoadingScreen().forcedHide(); // TODO
+  } else {
+    LoadingScreen().forcedHide();
   }
-  
-  if(state.msg != null && state.isErrorMsg != null){
+
+  if (state.msg != null && state.isErrorMsg != null) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
