@@ -26,9 +26,9 @@ class HiveHelper {
     await box.put(product.id, product);
   }
 
-  static Future<void> removeFavoriteProduct(ProductItemModel product) async {
+  static Future<void> removeFavoriteProduct(int productId) async {
     final box = Hive.box<ProductItemModel>(productItemModelBox);
-    await box.delete(product.id);
+    await box.delete(productId);
   }
 
   static List<ProductItemModel> getFavoriteProducts() {
@@ -61,11 +61,10 @@ class HiveHelper {
     await box.clear();
   }
 
-  static String? getToken() => 
-    Hive.box<String>(tokenBox).get(_tokenKey);
+  static String? getToken() => Hive.box<String>(tokenBox).get(_tokenKey);
 
-  static Future<void> updateToken(String token) async => 
-    await Hive.box<String>(tokenBox).put(_tokenKey, token);
+  static Future<void> updateToken(String token) async =>
+      await Hive.box<String>(tokenBox).put(_tokenKey, token);
 
   static Future<bool> canShowOnboarding() async {
     final res = Hive.box<bool>(onboardingBox).get(_onboardingKey) ?? true;
@@ -73,6 +72,6 @@ class HiveHelper {
     return res;
   }
 
-  static Future<void> resetOnboarding() async => 
-    Hive.box<bool>(onboardingBox).delete(_onboardingKey);
+  static Future<void> resetOnboarding() async =>
+      Hive.box<bool>(onboardingBox).delete(_onboardingKey);
 }

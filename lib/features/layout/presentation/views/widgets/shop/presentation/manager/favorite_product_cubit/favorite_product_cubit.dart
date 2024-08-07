@@ -23,7 +23,7 @@ class FavoriteProductCubit extends Cubit<FavortieProductStates> {
     final box =
         await Hive.openBox<ProductItemModel>(HiveHelper.productItemModelBox);
     if (box.containsKey(product.id)) {
-      await HiveHelper.removeFavoriteProduct(product);
+      await HiveHelper.removeFavoriteProduct(product.id!);
       await addOrDeleteFavoriteInApi(product.id!);
       customSnackBar(
         subTitle: product.name!,
