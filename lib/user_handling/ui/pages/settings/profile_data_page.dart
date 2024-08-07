@@ -94,63 +94,64 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
             child: Form(
               key: _gkProfileDataForm,
               child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ProfileAvatar(
-                      image: _imagePath == null 
-                        ? null 
-                        : (_imagePath!.startsWith("https://") ? NetworkImage(_imagePath!) : AssetImage(_imagePath!)),
-                      onTap: !_updateMode ? null : _onEditProfileAvatar,
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    CustomTextFormField(
-                      title: "Name",
-                      controller: _nameController,
-                      prefixIcon: const Icon(Icons.person),
-                      validator: (v) => FieldCheck.name(v ?? ""),
-                      readOnly: !_updateMode,
-                    ),
-                    CustomTextFormField(
-                      title: "Phone number",
-                      controller: _phoneNumController,
-                      prefixIcon: const Icon(Icons.phone),
-                      validator: (v) => FieldCheck.phoneNum(v ?? ""),
-                      readOnly: !_updateMode,
-                    ),
-                    CustomTextFormField(
-                      title: "Email Address",
-                      controller: _emailController,
-                      prefixIcon: const Icon(Icons.email),
-                      validator: (v) => FieldCheck.email(v ?? ""),
-                      readOnly: !_updateMode,
-                    ),
-                    const Spacer(),
-                    AnimatedEditButton(
-                      editClicked: _updateMode,
-                      onEdit: () => context.read<UserCubit>().changeUpdateProfileMode(true),
-                      onSave: (){
-                        if (_gkProfileDataForm.currentState?.validate() ?? false) {
-                          context.read<UserCubit>().updateProfile(
-                            name: _nameController.text, 
-                            email: _emailController.text, 
-                            phoneNum: _phoneNumController.text, 
-                            imagePath: _imagePath,
-                          );
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ProfileAvatar(
+                        image: _imagePath == null 
+                          ? null 
+                          : (_imagePath!.startsWith("https://") ? NetworkImage(_imagePath!) : AssetImage(_imagePath!)),
+                        onTap: !_updateMode ? null : _onEditProfileAvatar,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      CustomTextFormField(
+                        title: "Name",
+                        controller: _nameController,
+                        prefixIcon: const Icon(Icons.person),
+                        validator: (v) => FieldCheck.name(v ?? ""),
+                        readOnly: !_updateMode,
+                      ),
+                      CustomTextFormField(
+                        title: "Phone number",
+                        controller: _phoneNumController,
+                        prefixIcon: const Icon(Icons.phone),
+                        validator: (v) => FieldCheck.phoneNum(v ?? ""),
+                        readOnly: !_updateMode,
+                      ),
+                      CustomTextFormField(
+                        title: "Email Address",
+                        controller: _emailController,
+                        prefixIcon: const Icon(Icons.email),
+                        validator: (v) => FieldCheck.email(v ?? ""),
+                        readOnly: !_updateMode,
+                      ),
+                      AnimatedEditButton(
+                        editClicked: _updateMode,
+                        onEdit: () => context.read<UserCubit>().changeUpdateProfileMode(true),
+                        onSave: (){
+                          if (_gkProfileDataForm.currentState?.validate() ?? false) {
+                            context.read<UserCubit>().updateProfile(
+                              name: _nameController.text, 
+                              email: _emailController.text, 
+                              phoneNum: _phoneNumController.text, 
+                              imagePath: _imagePath,
+                            );
+                            _gkProfileDataForm.currentState?.reset();
+                          }
+                        },
+                        onCancel: () {
+                          context.read<UserCubit>().changeUpdateProfileMode(false);
                           _gkProfileDataForm.currentState?.reset();
-                        }
-                      },
-                      onCancel: () {
-                        context.read<UserCubit>().changeUpdateProfileMode(false);
-                        _gkProfileDataForm.currentState?.reset();
-                      },
-                    ),
-                  ],
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
