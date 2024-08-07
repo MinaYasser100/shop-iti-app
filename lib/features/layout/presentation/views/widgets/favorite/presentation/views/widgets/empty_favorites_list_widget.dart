@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_iti_app/core/styles/styles.dart';
+import 'package:shop_iti_app/core/constant/constant.dart';
+
 
 class EmptyFavoritesListWidget extends StatelessWidget {
   const EmptyFavoritesListWidget({
@@ -12,12 +13,23 @@ class EmptyFavoritesListWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          Icon(
+            Icons.favorite_border,
+            size: 100.0,
+            color: ConstantComponents.firstColor,
+          ),
+          SizedBox(height: 20.0),
+           Text(
             'No favorites items',
-            style: Styles.textStyle24,
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
           ),
         ],
       ),
+
     );
   }
 }
