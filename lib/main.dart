@@ -3,14 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/api/dio_api.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/func/check_token_logic.dart';
 import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
 import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
-import 'package:shop_iti_app/user_handling/api/response_model.dart';
-import 'package:shop_iti_app/user_handling/api/user_api.dart';
 import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
 import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
-import 'package:shop_iti_app/user_handling/models/user_models.dart';
 
 import 'features/layout/presentation/views/widgets/shop/presentation/manager/shop_screen_cubit/shop_screen_cubit.dart';
 
@@ -21,38 +19,12 @@ void main() async {
   DioApi.initDio();
 
   await HiveHelper.init();
-  // await HiveHelper.resetOnboarding(); // uncomment to force show onboarding screen
   _showOnboarding = await HiveHelper.canShowOnboarding();
   ConstantComponents.token = HiveHelper.getToken() ?? "";
-  _initialUserState = await _checkTokenLogic();
+  _initialUserState = await checkTokenLogic();
   _initialRoute = _getInitialRoute();
 
   runApp(const MyApp());
-}
-
-Future<BaseUserState> _checkTokenLogic() async {
-  if(ConstantComponents.token != ""){
-    late final ApiResponse<ActiveUser> profileResult;
-    try {
-      profileResult = await UserApi.getProfile(ConstantComponents.token);
-    } catch (e) {
-      await HiveHelper.updateToken("");
-      ConstantComponents.token = "";
-      return NotLoggedInState();
-    }
-
-    if(profileResult.status && profileResult.data != null){
-      return LoggedInState(
-        user: profileResult.data!,
-      );
-    }else{
-      await HiveHelper.updateToken("");
-      ConstantComponents.token = "";
-      return NotLoggedInState();
-    }
-  }
-  
-  return NotLoggedInState();
 }
 
 String _getInitialRoute() {
