@@ -68,7 +68,7 @@ class CheckoutSummaryView extends StatelessWidget {
                   child: Column(
                     children: [
 
-                      Icon(
+                      const Icon(
                         Icons.calculate,
                         size: 100.0,
                         color: ConstantComponents.firstColor,
