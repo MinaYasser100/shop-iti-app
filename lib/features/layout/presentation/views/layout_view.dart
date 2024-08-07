@@ -11,6 +11,7 @@ class LayoutView extends StatelessWidget {
     FontAwesomeIcons.shop,
     FontAwesomeIcons.solidHeart,
     FontAwesomeIcons.cartShopping,
+    FontAwesomeIcons.gear,
   ];
   @override
   Widget build(BuildContext context) {

@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/favorite/presentation/manager/favorite_cubit.dart';
 
-class FavoriteBodyView extends StatefulWidget {
+import 'widgets/empty_favorites_list_widget.dart';
+import 'widgets/favorite_error_widget.dart';
+import 'widgets/favorite_list_view_builder.dart';
+
+class FavoriteBodyView extends StatelessWidget {
   const FavoriteBodyView({super.key});
 
-  @override
-  _FavoriteBodyViewState createState() => _FavoriteBodyViewState();
-}
-
-class _FavoriteBodyViewState extends State<FavoriteBodyView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -44,119 +42,18 @@ class _FavoriteBodyViewState extends State<FavoriteBodyView> {
               child: CircularProgressIndicator(),
             );
           } else if (state is FavoriteCubitGetFavoriteDataFailure) {
-            return const Column(
-              children: [
-                Text('Error when get data'),
-              ],
+            return const Center(
+              child: FavoriteErrorWidget(),
             );
           } else {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView.builder(
-                itemCount: context.read<FavoriteCubit>().favoriteProduct.length,
-                itemBuilder: (context, index) {
-                  final entry =
-                      context.read<FavoriteCubit>().favoriteProduct[index];
-
-                  return GestureDetector(
-                    onTap: () {
-                      // Get.toNamed(
-                      //   GetPages.kProductDetails,
-                      // );
-                    },
-                    child: FavoriteItemWidget(
-                      image: entry.product!.image ?? '',
-                      price: entry.product!.price!,
-                      title: entry.product!.name ??
-                          'This product does not have a name',
-                      id: entry.product!.id!.toInt(),
-                    ),
-                  );
-                },
-              ),
+              child: context.read<FavoriteCubit>().favoriteProduct.isNotEmpty
+                  ? const FavoriteListViewBuilder()
+                  : const EmptyFavoritesListWidget(),
             );
           }
         }),
-      ),
-    );
-  }
-}
-
-class FavoriteItemWidget extends StatelessWidget {
-  final String image;
-  final num price;
-  final String title;
-  final int id;
-
-  const FavoriteItemWidget({
-    required this.image,
-    required this.price,
-    required this.title,
-    required this.id,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        children: [
-          Card(
-            clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: SizedBox(
-              width: 100,
-              height: 120,
-              child: Image.network(
-                image,
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          const SizedBox(width: 15.0),
-          SizedBox(
-            height: 120,
-            width: MediaQuery.sizeOf(context).width * 0.34,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    title,
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                Text(
-                  '\$ $price',
-                  style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    color: Get.isDarkMode ? Colors.white : Colors.black,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              context.read<FavoriteCubit>().addOrDeleteFavoriteInApi(id);
-            },
-            icon: const Icon(
-              Icons.favorite,
-              color: ConstantComponents.firstColor,
-            ),
-          ),
-        ],
       ),
     );
   }

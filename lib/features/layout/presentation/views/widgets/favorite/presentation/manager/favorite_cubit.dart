@@ -7,28 +7,26 @@ import 'package:shop_iti_app/core/api/failures.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
 import 'package:shop_iti_app/core/helper/hive_helper.dart';
-import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/favorite_model/favorite_model.dart';
-
-import '../../../shop/data/model/favorite_model/datum.dart';
+import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
 
 part 'favorite_states.dart';
 
 class FavoriteCubit extends Cubit<FavortieStates> {
   FavoriteCubit() : super(FavoriteCubitInitial());
-  List<Datum> favoriteProduct = [];
+  //List<Datum> favoriteProduct = [];
+  List<ProductItemModel> favoriteProduct = [];
   void getFavoriteData() async {
     emit(FavoriteCubitGetFavoriteDataLoading());
     try {
-      Response response = await DioApi.getData(
-        endPoint: DioEndPoint.dioFavorites,
-        token: ConstantComponents.token,
-      );
-      if (response.statusCode == 200) {
-        FavoriteModel favoriteModel = FavoriteModel.fromJson(response.data);
-        if (favoriteModel.data!.data!.isNotEmpty) {
-          favoriteProduct = favoriteModel.data!.data!;
-        }
-      }
+      // Response response = await DioApi.getData(
+      //   endPoint: DioEndPoint.dioFavorites,
+      //   token: ConstantComponents.token,
+      // );
+      // if (response.statusCode == 200) {
+      //   FavoriteModel favoriteModel = FavoriteModel.fromJson(response.data);
+      //   favoriteProduct = favoriteModel.data!.data!;
+      // }
+      favoriteProduct = HiveHelper.getFavoriteProducts();
       emit(FavoriteCubitGetFavoriteDataSuccess());
     } catch (e) {
       if (e is DioException) {
