@@ -7,13 +7,9 @@ import 'package:shop_iti_app/features/layout/presentation/views/widgets/favorite
 
 import 'widgets/favorite_item_widget.dart';
 
-class FavoriteBodyView extends StatefulWidget {
+class FavoriteBodyView extends StatelessWidget {
   const FavoriteBodyView({super.key});
-  @override
-  _FavoriteBodyViewState createState() => _FavoriteBodyViewState();
-}
 
-class _FavoriteBodyViewState extends State<FavoriteBodyView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -74,12 +70,19 @@ class _FavoriteBodyViewState extends State<FavoriteBodyView> {
                             // );
                           },
                           child: FavoriteItemWidget(
-                            image: entry[index].product!.image ?? '',
-                            price: entry[index].product!.price!,
-                            title: entry[index].product!.name ??
+                            image: entry[index].image ?? '',
+                            price: entry[index].price!,
+                            title: entry[index].name ??
                                 'This product does not have a name',
-                            id: entry[index].product!.id!.toInt(),
+                            id: entry[index].id!.toInt(),
                           ),
+                          // child: FavoriteItemWidget(
+                          //   image: entry[index].product!.image ?? '',
+                          //   price: entry[index].product!.price!,
+                          //   title: entry[index].product!.name ??
+                          //       'This product does not have a name',
+                          //   id: entry[index].product!.id!.toInt(),
+                          // ),
                         );
                       },
                     )
