@@ -1,413 +1,117 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
+import 'package:shop_iti_app/core/styles/styles.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/cart/presentation/manager/cart_cubit.dart';
-import 'checkout_summary_view.dart';
 
-class CartBodyView extends StatefulWidget {
+import 'widgets/cart_item_widget.dart';
+
+class CartBodyView extends StatelessWidget {
   const CartBodyView({super.key});
 
-  @override
-  _CartBodyViewState createState() => _CartBodyViewState();
-}
+  // double _calculateSubtotal() {
+  //   return cartItems.fold(
+  //       0, (sum, item) => sum + (item['price'] * item['quantity']));
+  // }
 
-class _CartBodyViewState extends State<CartBodyView> {
-  List<Map<String, dynamic>> cartItems = [
-    {
-      'image':
-          'https://www.nike.ae/dw/image/v2/BDVB_PRD/on/demandware.static/-/Sites-akeneo-master-catalog/default/dwc6d5bdfe/nk/9bc/0/1/6/b/c/9bc016bc_cd7a_49cc_a399_47930b00c59f.jpg?sw=700&sh=700&sm=fit&q=100&strip=false',
-      'price': 29.99,
-      'title': 'Nike Dunk Low Retro',
-      'quantity': 1,
-    },
-    {
-      'image':
-          'https://telfonak.com/wp-content/uploads/2024/02/iphone15-plus.webp',
-      'price': 950.0,
-      'title': 'Apple iPhone 15 Plus',
-      'quantity': 1,
-    },
-  ];
+  // double _calculateDeliveryCharge() {
+  //   return 10.0; // مثلا يعنى
+  // }
 
-  void _removeItem(int index) {
-    setState(() {
-      cartItems.removeAt(index);
-    });
-  }
+  // double _calculateTotal() {
+  //   return _calculateSubtotal() + _calculateDeliveryCharge();
+  // }
 
-  void _incrementQuantity(int index) {
-    setState(() {
-      cartItems[index]['quantity']++;
-    });
-  }
-
-  void _decrementQuantity(int index) {
-    setState(() {
-      if (cartItems[index]['quantity'] > 1) {
-        cartItems[index]['quantity']--;
-      }
-    });
-  }
-
-  double _calculateSubtotal() {
-    return cartItems.fold(
-        0, (sum, item) => sum + (item['price'] * item['quantity']));
-  }
-
-  double _calculateDeliveryCharge() {
-    return 10.0; // مثلا يعنى
-  }
-
-  double _calculateTotal() {
-    return _calculateSubtotal() + _calculateDeliveryCharge();
-  }
-
-  void _navigateToCheckout() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CheckoutSummaryView(
-          subtotal: _calculateSubtotal(),
-          deliveryCharge: _calculateDeliveryCharge(),
-          total: _calculateTotal(),
-        ),
-      ),
-    );
-  }
+  // void _navigateToCheckout() {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => CheckoutSummaryView(
+  //         subtotal: _calculateSubtotal(),
+  //         deliveryCharge: _calculateDeliveryCharge(),
+  //         total: _calculateTotal(),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ConstantComponents.firstColor,
-        title: const Text(
-          'Cart Items',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            fontSize: 22.0,
+    return BlocProvider(
+      create: (context) => CartCubit()..getCartData(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: ConstantComponents.firstColor,
+          title: const Text(
+            'Cart Items',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 22.0,
+            ),
           ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: BlocBuilder<CartCubit,CartStates>(
-        builder: (context,state) {
-          if( State is CartCubitGetCartDataLoading)
-            {          return Center(
-            child : CircularProgressIndicator(),
+        body: BlocConsumer<CartCubit, CartStates>(listener: (context, state) {
+          if (state is CartCubitRemoveProductFromCartSuccess) {
+            customSnackBar(
+              subTitle: 'Success remove product from cart',
+              text: 'Remove From Cart',
             );
-        }else if(state is CartCubitGetCartDataSuccess){
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: context.read<CartCubit>().cartproduct.asMap().entries
-              .map(cartItems) => buildCartItem(
-              image:entry,
-              price: cartItems[index]['price'],
-              title: cartItems[index]['title'],
-              quantity: cartItems[index]['quantity'],
-              //index: index,
-            )
-            );
-
-
           }
-    }
-      ),
-    );
-  }
-
-  Widget buildCartItem({
-    required String image,
-    required num price,
-    required String title,
-    required num quantity,
-    //required int index,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        children: [
-          Card(
-            clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: SizedBox(
-              width: 100,
-              height: 100,
-              child: Image.network(
-                image,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          const SizedBox(width: 15.0),
-          Expanded(
-            flex: 10,
-            child: Column(
+        }, builder: (context, state) {
+          if (State is CartCubitGetCartDataLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is CartCubitGetCartDataFailure) {
+            return const Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
-                  style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    color: Get.isDarkMode ? Colors.white : Colors.black,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                Text(
-                  '\$ $price',
-                  style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    color: Get.isDarkMode ? Colors.white : Colors.black,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => _decrementQuantity(index),
-                      icon: const Icon(Icons.remove_circle_outline),
-                    ),
-                    Text(
-                      '$quantity',
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () => _incrementQuantity(index),
-                      icon: const Icon(Icons.add_circle_outline),
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: () => _removeItem(index),
-                      icon: const Icon(
-                        Icons.delete,
-                        color: ConstantComponents.firstColor,
-                      ),
-                    ),
-                  ],
+                  'An error occurred while fetching data',
+                  style: Styles.textStyle20Failure,
                 ),
               ],
-            ),
-
-          ),
-        ],
+            );
+          } else {
+            return context.read<CartCubit>().cartproduct.isNotEmpty
+                ? ListView.builder(
+                    itemCount: context.read<CartCubit>().cartproduct.length,
+                    itemBuilder: (context, index) {
+                      final cartItem =
+                          context.read<CartCubit>().cartproduct[index];
+                      return CartItemWidget(
+                        image: cartItem.product!.image ?? '',
+                        price: cartItem.product!.price!,
+                        title: cartItem.product!.name ??
+                            'This product does not have a name',
+                        quantity: cartItem.quantity!,
+                        id: cartItem.product!.id!.toInt(),
+                      );
+                    },
+                  )
+                : const Center(
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.shopping_bag,
+                          size: 100.0,
+                          color: ConstantComponents.firstColor,
+                        ),
+                        SizedBox(height: 20.0),
+                        Text(
+                          'No Product items in cart',
+                          style: Styles.textStyle24,
+                        ),
+                      ],
+                    ),
+                  );
+          }
+        }),
       ),
     );
   }
 }
-
-
-
-/*
-
-
-Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: cartItems.length,
-                  itemBuilder: (context, index) {
-                    return buildCartItem(
-                      image: cartItems[index]['image'],
-                      price: cartItems[index]['price'],
-                      title: cartItems[index]['title'],
-                      quantity: cartItems[index]['quantity'],
-                      index: index,
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ElevatedButton(
-                  onPressed: _navigateToCheckout,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ConstantComponents.firstColor,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15.0, horizontal: 100.0),
-                  ),
-                  child: const Text(
-                    'Go to Checkout',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          );
-
-
-
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:shop_iti_app/core/constant/constant.dart';
-
-class CartBodyView extends StatefulWidget {
-  const CartBodyView({super.key});
-
-  @override
-  _CartBodyViewState createState() => _CartBodyViewState();
-}
-
-class _CartBodyViewState extends State<CartBodyView> {
-  List<Map<String, dynamic>> cartItems = [
-    {
-      'image': 'https://www.nike.ae/dw/image/v2/BDVB_PRD/on/demandware.static/-/Sites-akeneo-master-catalog/default/dwc6d5bdfe/nk/9bc/0/1/6/b/c/9bc016bc_cd7a_49cc_a399_47930b00c59f.jpg?sw=700&sh=700&sm=fit&q=100&strip=false',
-      'price': 29.99,
-      'title': 'Nike Dunk Low Retro',
-      'quantity': 1,
-    },
-    {
-      'image': 'https://telfonak.com/wp-content/uploads/2024/02/iphone15-plus.webp',
-      'price': 950.0,
-      'title': 'Apple iPhone 15 Plus',
-      'quantity': 1,
-    },
-  ];
-
-  void _removeItem(int index) {
-    setState(() {
-      cartItems.removeAt(index);
-    });
-  }
-
-  void _incrementQuantity(int index) {
-    setState(() {
-      cartItems[index]['quantity']++;
-    });
-  }
-
-  void _decrementQuantity(int index) {
-    setState(() {
-      if (cartItems[index]['quantity'] > 1) {
-        cartItems[index]['quantity']--;
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ConstantComponents.firstColor,
-        title: Text(
-          'Cart Items',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            fontSize: 22.0,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: ListView.builder(
-        itemCount: cartItems.length,
-        itemBuilder: (context, index) {
-          return buildCartItem(
-            image: cartItems[index]['image'],
-            price: cartItems[index]['price'],
-            title: cartItems[index]['title'],
-            quantity: cartItems[index]['quantity'],
-            index: index,
-          );
-        },
-      ),
-    );
-  }
-
-  Widget buildCartItem({
-    required String image,
-    required double price,
-    required String title,
-    required int quantity,
-    required int index,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        children: [
-          Card(
-            clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: SizedBox(
-              width: 100,
-              height: 100,
-              child: Image.network(
-                image,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          const SizedBox(width: 15.0),
-          Expanded(
-            flex: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    color: Get.isDarkMode ? Colors.white : Colors.black,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                Text(
-                  '\$ $price',
-                  style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    color: Get.isDarkMode ? Colors.white : Colors.black,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => _decrementQuantity(index),
-                      icon: Icon(Icons.remove_circle_outline),
-                    ),
-                    Text(
-                      '$quantity',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () => _incrementQuantity(index),
-                      icon: Icon(Icons.add_circle_outline),
-                    ),
-                    Spacer(),
-                    IconButton(
-                      onPressed: () => _removeItem(index),
-                      icon: Icon(
-                        Icons.delete,
-                        color:ConstantComponents.firstColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-*/

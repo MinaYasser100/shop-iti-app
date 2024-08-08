@@ -3,25 +3,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/api/dio_api.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
+import 'package:shop_iti_app/core/func/check_token_logic.dart';
 import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/core/pages/get_pages.dart';
 import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
-import 'package:shop_iti_app/features/layout/presentation/views/widgets/cart/presentation/manager/cart_cubit.dart';
-import 'package:shop_iti_app/login_register/cubit/login_register_cubit.dart';
+import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
+import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
 
 import 'features/layout/presentation/views/widgets/shop/presentation/manager/shop_screen_cubit/shop_screen_cubit.dart';
 
 late final bool _showOnboarding;
 late final String _initialRoute;
-
+late final BaseUserState _initialUserState;
 void main() async {
   DioApi.initDio();
 
   await HiveHelper.init();
-  // await HiveHelper.resetOnboarding(); // uncomment to force show onboarding screen
   _showOnboarding = await HiveHelper.canShowOnboarding();
-  // await HiveHelper.updateToken(""); // uncomment to delete the saved token
   ConstantComponents.token = HiveHelper.getToken() ?? "";
+  _initialUserState = await checkTokenLogic();
   _initialRoute = _getInitialRoute();
 
   runApp(const MyApp());
@@ -51,9 +51,8 @@ class MyApp extends StatelessWidget {
           create: (context) => ShopScreenCubit()..getShopData(),
         ),
         BlocProvider(
-          create: (context) => UserCubit(),
+          create: (context) => UserCubit(_initialUserState),
         ),
-        BlocProvider(create: (context)=>CartCubit()..getCartData(),),
       ],
       child: GetMaterialApp(
         theme: ThemeData(

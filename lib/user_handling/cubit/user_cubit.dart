@@ -121,7 +121,7 @@ class UserCubit extends Cubit<BaseUserState> {
     if (loginResult.status && loginResult.data != null) {
       final token = loginResult.data!.token;
       ConstantComponents.token = token;
-      if(rememberMe){
+      if (rememberMe) {
         await HiveHelper.updateToken(token);
       }
       LoadingScreen().forcedHide();
@@ -149,7 +149,7 @@ class UserCubit extends Cubit<BaseUserState> {
     required String phoneNum,
     required String? imagePath,
   }) async {
-    if(state is! InUpdateProfilePageState){
+    if (state is! InUpdateProfilePageState) {
       return;
     }
 
@@ -227,7 +227,7 @@ class UserCubit extends Cubit<BaseUserState> {
     required String currentPassword,
     required String newPassword,
   }) async {
-    if(state is! LoggedInState){
+    if (state is! LoggedInState) {
       return;
     }
 
@@ -286,12 +286,13 @@ class UserCubit extends Cubit<BaseUserState> {
     }
   }
 
-
   void logout() async {
-    if(state is! LoggedInState){return;}
+    if (state is! LoggedInState) {
+      return;
+    }
 
     final user = (state as LoggedInState).user;
-    if(state is LoggedInState){
+    if (state is LoggedInState) {
       emit(LoggedInState(
         isLoading: true,
         user: user,
@@ -318,21 +319,22 @@ class UserCubit extends Cubit<BaseUserState> {
 
   void toRegisterPage() => Get.toNamed(GetPages.kRegisterView);
 
-  void toUpdateProfilePage(){
-    if(state is LoggedInState){
-      emit(InUpdateProfilePageState(user: (state as LoggedInState).user, updateMode: false));
+  void toUpdateProfilePage() {
+    if (state is LoggedInState) {
+      emit(InUpdateProfilePageState(
+          user: (state as LoggedInState).user, updateMode: false));
       Get.toNamed(GetPages.kProfileDataView);
     }
   }
 
-  void backToSettingsPage(){
-    if(state is InUpdateProfilePageState){
+  void backToSettingsPage() {
+    if (state is InUpdateProfilePageState) {
       emit(LoggedInState(user: (state as LoggedInState).user));
     }
   }
 
-  void changeUpdateProfileMode(bool mode){
-    if(state is InUpdateProfilePageState){
+  void changeUpdateProfileMode(bool mode) {
+    if (state is InUpdateProfilePageState) {
       emit(InUpdateProfilePageState(
         user: (state as InUpdateProfilePageState).user,
         updateMode: mode,
