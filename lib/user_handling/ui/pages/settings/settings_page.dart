@@ -42,7 +42,7 @@ class SettingsPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Flexible(
+              Expanded(
                 child: ListView(
                   children: [
                     ListTile(
@@ -66,7 +66,6 @@ class SettingsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              const Spacer(),
               SubmitFormButton(
                   title: "Logout",
                   bgColor: Colors.red,
