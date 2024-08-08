@@ -21,13 +21,14 @@ class ProductPriceWidget extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: Styles.textStyle18,
           ),
-          Text(
-            productItemModel.oldPrice.toString(),
-            style: const TextStyle(
-              color: Colors.grey,
-              decoration: TextDecoration.lineThrough,
-            ),
-          )
+          if (productItemModel.discount != 0)
+            Text(
+              productItemModel.oldPrice.toString(),
+              style: const TextStyle(
+                color: Colors.grey,
+                decoration: TextDecoration.lineThrough,
+              ),
+            )
         ],
       ),
     );
