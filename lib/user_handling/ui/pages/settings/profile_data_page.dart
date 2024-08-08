@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -104,7 +106,7 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
                       ProfileAvatar(
                         image: _imagePath == null 
                           ? null 
-                          : (_imagePath!.startsWith("https://") ? NetworkImage(_imagePath!) : AssetImage(_imagePath!)),
+                          : (_imagePath!.startsWith("https://") ? NetworkImage(_imagePath!) : FileImage(File(_imagePath!))),
                         onTap: !_updateMode ? null : _onEditProfileAvatar,
                       ),
                       const SizedBox(

@@ -28,7 +28,11 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  carousel_slider: ^4.2.1
+  # carousel_slider: ^4.2.1
+  carousel_slider:
+    git:
+      url: https://github.com/sampaio96/flutter_carousel_slider.git
+      ref: master
   connectivity_plus: ^6.0.4
   cupertino_icons: ^1.0.6
   dio: ^5.5.0+1
