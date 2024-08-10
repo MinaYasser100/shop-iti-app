@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-
 part of 'cart_item.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
+
 class CartItemAdapter extends TypeAdapter<CartItem> {
   @override
+
   final int typeId = 1;
 
   @override

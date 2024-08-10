@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
-
 part 'cart_item.g.dart';
 
 @HiveType(typeId: 1)
@@ -11,8 +10,8 @@ class CartItem {
   num? quantity;
   @HiveField(2)
   ProductItemModel? product;
-
   CartItem({this.id, this.quantity, this.product});
+
 
   factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
         id: json['id'] as num?,
@@ -22,7 +21,6 @@ class CartItem {
             : ProductItemModel.fromJson(
                 json['product'] as Map<String, dynamic>),
       );
-
   Map<String, dynamic> toJson() => {
         'id': id,
         'quantity': quantity,
