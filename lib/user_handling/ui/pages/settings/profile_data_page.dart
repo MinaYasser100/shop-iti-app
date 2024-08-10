@@ -1,4 +1,5 @@
 
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,9 +78,9 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-                  backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
         ),
         body: BlocListener<UserCubit, BaseUserState>(
           listener: (context, state) {
@@ -107,7 +108,7 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
                         onTap: !_updateMode ? null : _onEditProfileAvatar,
                       ),
 
-                       const SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       CustomTextFormField(
@@ -137,9 +138,9 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
                         onSave: (){
                           if (_gkProfileDataForm.currentState?.validate() ?? false) {
                             context.read<UserCubit>().updateProfile(
-                              name: _nameController.text, 
-                              email: _emailController.text, 
-                              phoneNum: _phoneNumController.text, 
+                              name: _nameController.text,
+                              email: _emailController.text,
+                              phoneNum: _phoneNumController.text,
                               imagePath: _imagePath,
                             );
                             _gkProfileDataForm.currentState?.reset();

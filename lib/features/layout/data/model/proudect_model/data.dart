@@ -1,4 +1,5 @@
 
+
 import 'banner_model.dart';
 import 'product.dart';
 
@@ -6,7 +7,6 @@ class Data {
   List<BannerModel>? banners;
   List<ProductItemModel>? products;
   String? ad;
-
   Data({this.banners, this.products, this.ad});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -18,7 +18,6 @@ class Data {
         .toList(),
     ad: json['ad'] as String?,
   );
-
   Map<String, dynamic> toJson() => {
     'banners': banners?.map((e) => e.toJson()).toList(),
     'products': products?.map((e) => e.toJson()).toList(),

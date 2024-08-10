@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
@@ -66,9 +67,9 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   prefixIcon: const Icon(Icons.lock),
                   isPassField: true,
                   validator: (v) =>
-                      _newPassController.text == _confirmNewPassController.text
-                          ? null
-                          : "Passwords do NOT match",
+                  _newPassController.text == _confirmNewPassController.text
+                      ? null
+                      : "Passwords do NOT match",
                 ),
                 const Spacer(),
                 SubmitFormButton(
@@ -77,9 +78,9 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                     if (_gkUpdatePasswordForm.currentState?.validate() ??
                         false) {
                       context.read<UserCubit>().changePassword(
-                            currentPassword: _currentPassController.text,
-                            newPassword: _newPassController.text,
-                          );
+                        currentPassword: _currentPassController.text,
+                        newPassword: _newPassController.text,
+                      );
                     }
                   },
                 ),

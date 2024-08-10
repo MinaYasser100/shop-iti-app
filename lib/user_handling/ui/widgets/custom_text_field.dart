@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatefulWidget {
@@ -21,7 +22,6 @@ class CustomTextFormField extends StatefulWidget {
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
-
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool _isPassShown = false;
   @override
@@ -41,17 +41,17 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               decoration: InputDecoration(
                 filled: true,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: BorderSide.none
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: BorderSide.none
                 ),
 
                 labelText: widget.title,
                 prefixIcon: widget.prefixIcon,
                 suffixIcon: !widget.isPassField ? null : IconButton(
                   onPressed: () => setState(() => _isPassShown = !_isPassShown),
-                  icon: Icon(_isPassShown 
-                    ? Icons.remove_red_eye_outlined 
-                    : Icons.remove_red_eye,
+                  icon: Icon(_isPassShown
+                      ? Icons.remove_red_eye_outlined
+                      : Icons.remove_red_eye,
                   ),
                 ),
               ),

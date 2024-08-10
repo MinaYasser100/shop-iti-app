@@ -1,8 +1,5 @@
 
-
-
 import 'package:flutter/material.dart';
-
 
 Text nameProductMehtod(String productName) {
   return Text(

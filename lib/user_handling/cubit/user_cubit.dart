@@ -1,3 +1,4 @@
+
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -27,11 +28,10 @@ class UserCubit extends Cubit<BaseUserState> {
     late final List<int>? imageBytes;
     try {
       imageBytes =
-          imagePath == null ? null : await File(imagePath).readAsBytes();
+      imagePath == null ? null : await File(imagePath).readAsBytes();
     } catch (e) {
       imageBytes = null;
     }
-
     late final UserProfileDataRequest req;
     try {
       req = UserProfileDataRequest(
@@ -77,7 +77,6 @@ class UserCubit extends Cubit<BaseUserState> {
       return;
     }
   }
-
   void login({
     required String email,
     required String password,
@@ -101,7 +100,6 @@ class UserCubit extends Cubit<BaseUserState> {
       ));
       return;
     }
-
     late final ApiResponse<ActiveUser> loginResult;
     try {
       loginResult = await UserApi.login(credintials);
@@ -113,7 +111,6 @@ class UserCubit extends Cubit<BaseUserState> {
       ));
       return;
     }
-
     if (loginResult.status && loginResult.data != null) {
       final token = loginResult.data!.token;
       ConstantComponents.token = token;
@@ -121,7 +118,6 @@ class UserCubit extends Cubit<BaseUserState> {
         await HiveHelper.updateToken(token);
       }
       LoadingScreen().forcedHide();
-
       emit(LoggedInState(
         isErrorMsg: loginResult.message == null ? null : false,
         isLoading: false,
@@ -138,7 +134,6 @@ class UserCubit extends Cubit<BaseUserState> {
       return;
     }
   }
-
   void updateProfile({
     required String name,
     required String email,
@@ -148,23 +143,19 @@ class UserCubit extends Cubit<BaseUserState> {
     if (state is! InUpdateProfilePageState) {
       return;
     }
-
     final user = (state as InUpdateProfilePageState).user;
-
     emit(InUpdateProfilePageState(
       isLoading: true,
       user: user,
       updateMode: true,
     ));
-
     late final List<int>? imageBytes;
     try {
       imageBytes =
-          imagePath == null ? null : await File(imagePath).readAsBytes();
+      imagePath == null ? null : await File(imagePath).readAsBytes();
     } catch (e) {
       imageBytes = null;
     }
-
     late final UserProfileDataRequest req;
     try {
       req = UserProfileDataRequest.update(
@@ -183,7 +174,6 @@ class UserCubit extends Cubit<BaseUserState> {
       ));
       return;
     }
-
     late final ApiResponse<ActiveUser> updateResult;
     try {
       updateResult = await UserApi.updateProfile(user, req);
@@ -197,7 +187,6 @@ class UserCubit extends Cubit<BaseUserState> {
       ));
       return;
     }
-
     if (updateResult.status && updateResult.data != null) {
       emit(InUpdateProfilePageState(
         isErrorMsg: updateResult.message == null ? null : false,
@@ -207,7 +196,8 @@ class UserCubit extends Cubit<BaseUserState> {
         updateMode: false,
       ));
       return;
-    } else {
+    }
+    else {
       emit(InUpdateProfilePageState(
         isErrorMsg: updateResult.message == null ? null : true,
         isLoading: false,
@@ -218,7 +208,6 @@ class UserCubit extends Cubit<BaseUserState> {
       return;
     }
   }
-
   void changePassword({
     required String currentPassword,
     required String newPassword,
@@ -226,21 +215,19 @@ class UserCubit extends Cubit<BaseUserState> {
     if (state is! LoggedInState) {
       return;
     }
-
     final user = (state as LoggedInState).user;
-
     emit(LoggedInState(
       isLoading: true,
       user: user,
     ));
-
     late final ChangePasswordRequest req;
     try {
       req = ChangePasswordRequest(
         currentPassword: currentPassword,
         newPassword: newPassword,
       );
-    } catch (e) {
+    }
+    catch (e) {
       emit(LoggedInState(
         isErrorMsg: true,
         isLoading: false,
@@ -253,7 +240,8 @@ class UserCubit extends Cubit<BaseUserState> {
     late final ApiResponse changePassResult;
     try {
       changePassResult = await UserApi.changePassword(user, req);
-    } catch (e) {
+    }
+    catch (e) {
       emit(LoggedInState(
         isErrorMsg: true,
         isLoading: false,
@@ -262,7 +250,6 @@ class UserCubit extends Cubit<BaseUserState> {
       ));
       return;
     }
-
     if (changePassResult.status && changePassResult.data != null) {
       emit(LoggedInState(
         isErrorMsg: changePassResult.message == null ? null : false,
@@ -281,12 +268,10 @@ class UserCubit extends Cubit<BaseUserState> {
       return;
     }
   }
-
   void logout() async {
     if (state is! LoggedInState) {
       return;
     }
-
     final user = (state as LoggedInState).user;
     if (state is LoggedInState) {
       emit(LoggedInState(
@@ -296,7 +281,8 @@ class UserCubit extends Cubit<BaseUserState> {
 
       try {
         UserApi.logout(user);
-      } catch (e) {
+      }
+      catch (e) {
         emit(LoggedInState(
           isErrorMsg: true,
           isLoading: false,
@@ -305,16 +291,13 @@ class UserCubit extends Cubit<BaseUserState> {
         ));
         return;
       }
-
       await HiveHelper.updateToken("");
       ConstantComponents.token = "";
       emit(NotLoggedInState());
       Get.toNamed(GetPages.kLoginView);
     }
   }
-
   void toRegisterPage() => Get.toNamed(GetPages.kRegisterView);
-
   void toUpdateProfilePage() {
     if (state is LoggedInState) {
       emit(InUpdateProfilePageState(
@@ -322,13 +305,11 @@ class UserCubit extends Cubit<BaseUserState> {
       Get.toNamed(GetPages.kProfileDataView);
     }
   }
-
   void backToSettingsPage() {
     if (state is InUpdateProfilePageState) {
       emit(LoggedInState(user: (state as LoggedInState).user));
     }
   }
-
   void changeUpdateProfileMode(bool mode) {
     if (state is InUpdateProfilePageState) {
       emit(InUpdateProfilePageState(
