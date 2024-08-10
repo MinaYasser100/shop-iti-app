@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
@@ -23,6 +22,7 @@ class LoginCredintials with Jsonable, EquatableMixin{
     password: password,
   );
 
+
   LoginCredintials.fromJson(JSON json) :
         email = json["email"],
         password = json["password"];
@@ -39,7 +39,6 @@ class LoginCredintials with Jsonable, EquatableMixin{
     password,
   ];
 }
-
 class UserProfileDataRequest extends BaseUser{
   final List<int>? imageBytes;
 
@@ -50,6 +49,7 @@ class UserProfileDataRequest extends BaseUser{
     required String super.password,
     this.imageBytes,
   });
+
   UserProfileDataRequest.update({
     required super.name,
     required super.email,
@@ -66,6 +66,7 @@ class UserProfileDataRequest extends BaseUser{
     };
   }
 }
+
 class ChangePasswordRequest with Jsonable{
   final String currentPassword;
   final String newPassword;

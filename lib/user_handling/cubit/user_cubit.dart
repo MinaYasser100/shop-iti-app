@@ -77,6 +77,7 @@ class UserCubit extends Cubit<BaseUserState> {
       return;
     }
   }
+
   void login({
     required String email,
     required String password,
@@ -91,7 +92,8 @@ class UserCubit extends Cubit<BaseUserState> {
         email: email,
         password: password,
       );
-    } catch (e) {
+    }
+    catch (e) {
       emit(NotLoggedInState(
         isErrorMsg: true,
         isLoading: false,
@@ -99,6 +101,7 @@ class UserCubit extends Cubit<BaseUserState> {
       ));
       return;
     }
+
     late final ApiResponse<ActiveUser> loginResult;
     try {
       loginResult = await UserApi.login(credintials);

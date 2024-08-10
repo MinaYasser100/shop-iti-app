@@ -1,7 +1,7 @@
+
 import 'package:equatable/equatable.dart';
 import 'package:shop_iti_app/user_handling/models/request_models.dart';
 import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
-
 import '../utils/utils.dart';
 
 abstract class BaseUser with Jsonable, EquatableMixin{
@@ -17,8 +17,8 @@ abstract class BaseUser with Jsonable, EquatableMixin{
     required String email,
     String? password,
     required this.phoneNum,
-  }) : 
-    assert(FieldCheck.name(name) == null),
+  })
+      :assert(FieldCheck.name(name) == null),
     assert(FieldCheck.phoneNum(phoneNum) == null),
     name = name.trim().replaceAll(RegExp(r"\s+")," "),
     _credintials = LoginCredintials(email: email, password: password,);
@@ -34,7 +34,6 @@ abstract class BaseUser with Jsonable, EquatableMixin{
     ..._credintials.toJson(),
     "phone": phoneNum,
   };
-
   @override
   List<Object?> get props => [
     name,
@@ -73,7 +72,6 @@ class ActiveUser extends BaseUser{
     token = json["token"],
     super.fromJson();
 
-  
   @override
   JSON toJson() => {
     ...super.toJson(),
@@ -83,7 +81,6 @@ class ActiveUser extends BaseUser{
     "credit": credit,
     "token": token,
   };
-
   @override
   List<Object?> get props => [
     ...super.props,

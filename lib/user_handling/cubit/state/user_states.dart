@@ -1,3 +1,4 @@
+
 import 'package:equatable/equatable.dart';
 import 'package:shop_iti_app/user_handling/models/user_models.dart';
 
@@ -21,6 +22,7 @@ abstract class BaseUserState with EquatableMixin{
     _user,
   ];
 }
+
 class NotLoggedInState extends BaseUserState{
   NotLoggedInState({
     super.msg,
