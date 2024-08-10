@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
@@ -20,14 +21,13 @@ class _OnbordingState extends State<Onbording> {
     _controller = PageController(initialPage: 0);
     super.initState();
   }
-
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -113,6 +113,7 @@ class _OnbordingState extends State<Onbording> {
       ),
     );
   }
+
   Container buildDot(int index, BuildContext context) => Container(
     height: 10,
     width: currentIndex == index ? 25 : 10,

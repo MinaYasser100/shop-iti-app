@@ -1,14 +1,16 @@
+
+
 class OnboardingContent {
   final String image;
   final String title;
   final String discription;
+
 
   const OnboardingContent({
     required this.image,
     required this.title,
     required this.discription,
   });
-
   static const all = [
     OnboardingContent(
       title: "Shopping Online",
