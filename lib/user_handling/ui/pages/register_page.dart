@@ -1,5 +1,5 @@
-import 'dart:io';
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,7 +10,6 @@ import 'package:shop_iti_app/user_handling/ui/widgets/profile_avatar.dart';
 import 'package:shop_iti_app/user_handling/ui/widgets/submit_form_button.dart';
 import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
 import 'package:shop_iti_app/user_handling/utils/utils.dart';
-
 import '../widgets/custom_text_field.dart';
 
 final _gkRegisterForm = GlobalKey<FormState>();
@@ -30,7 +29,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _pass2Controller = TextEditingController();
 
   String? _imagePath;
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -41,7 +39,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
       ),
+
       body: BlocListener<UserCubit, BaseUserState>(
         listener: userCubitListner,
         child: Center(
@@ -65,6 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       title: "Register",
                       subTitle: "Please register to login.",
                     ),
+
                     const SizedBox(height: 30,),
                     Center(
                       child: ProfileAvatar(
@@ -76,7 +75,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         onTap: () async {
                           final ImagePicker picker = ImagePicker();
                           final image = await picker.pickImage(source: ImageSource.gallery);
-
                           if (image != null) {
                             _imagePath = image.path;
                             setState(() {});
@@ -85,27 +83,32 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
 
                     ),
+
                     const SizedBox(
                       height: 15,
                     ),
+
                     CustomTextFormField(
                       title: "Name",
                       controller: _nameController,
                       prefixIcon: const Icon(Icons.person),
                       validator: (v) => FieldCheck.name(v ?? ""),
                     ),
+
                     CustomTextFormField(
                       title: "Phone number",
                       controller: _phoneNumController,
                       prefixIcon: const Icon(Icons.phone),
                       validator: (v) => FieldCheck.phoneNum(v ?? ""),
                     ),
+
                     CustomTextFormField(
                       title: "Email Address",
                       controller: _emailController,
                       prefixIcon: const Icon(Icons.email),
                       validator: (v) => FieldCheck.email(v ?? ""),
                     ),
+
                     CustomTextFormField(
                       title: "Password",
                       controller: _passController,
@@ -113,19 +116,22 @@ class _RegisterPageState extends State<RegisterPage> {
                       isPassField: true,
                       validator: (v) => FieldCheck.password(v ?? ""),
                     ),
+
                     CustomTextFormField(
                       title: "Confirm password",
                       controller: _pass2Controller,
                       prefixIcon: const Icon(Icons.lock),
                       isPassField: true,
                       validator: (v) =>
-                          _pass2Controller.text == _passController.text
-                              ? null
-                              : "Passwords do NOT match",
+                      _pass2Controller.text == _passController.text
+                          ? null
+                          : "Passwords do NOT match",
                     ),
+
                     const SizedBox(
                       height: 10,
                     ),
+
                     SubmitFormButton(
                       title: "Register",
                       onTap: () {

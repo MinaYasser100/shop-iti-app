@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
@@ -7,15 +8,14 @@ import 'package:shop_iti_app/user_handling/ui/widgets/submit_form_button.dart';
 import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
 import 'package:shop_iti_app/user_handling/utils/utils.dart';
 
-final _gkUpdatePasswordForm = GlobalKey<FormState>();
 
+final _gkUpdatePasswordForm = GlobalKey<FormState>();
 class UpdatePasswordPage extends StatefulWidget {
   const UpdatePasswordPage({super.key});
 
   @override
   State<UpdatePasswordPage> createState() => _UpdatePasswordPageState();
 }
-
 class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   final _currentPassController = TextEditingController();
   final _newPassController = TextEditingController();
@@ -29,7 +29,6 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
 
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,5 +1,5 @@
-import 'dart:io';
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,9 +13,9 @@ import 'package:shop_iti_app/user_handling/utils/utils.dart';
 
 final _gkProfileDataForm = GlobalKey<FormState>();
 
+
 class ProfileDataPage extends StatefulWidget {
   const ProfileDataPage({super.key});
-
   @override
   State<ProfileDataPage> createState() => _ProfileDataPageState();
 }
@@ -34,14 +34,12 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
       return false;
     }
   }
-
   @override
   void initState() {
     super.initState();
 
     _updateFromCubit(context);
   }
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -50,7 +48,6 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
 
     super.dispose();
   }
-
   void _onEditProfileAvatar() async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
@@ -60,7 +57,6 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
       setState(() {});
     }
   }
-
   void _updateFromCubit(BuildContext context) {
     final state = context.read<UserCubit>().state;
     if (state is InUpdateProfilePageState) {
@@ -71,7 +67,6 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
       setState(() {});
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return PopScope(

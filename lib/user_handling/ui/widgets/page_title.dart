@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class PageTitle extends StatelessWidget {
@@ -8,7 +9,6 @@ class PageTitle extends StatelessWidget {
     required this.title,
     required this.subTitle,
   });
-
   @override
   Widget build(BuildContext context) => RichText(
     text: TextSpan(

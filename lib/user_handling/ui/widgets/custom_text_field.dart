@@ -7,6 +7,8 @@ class CustomTextFormField extends StatefulWidget {
   final bool isPassField;
   final Widget? prefixIcon;
   final bool readOnly;
+
+
   const CustomTextFormField({
     super.key,
     required this.title,
@@ -16,14 +18,12 @@ class CustomTextFormField extends StatefulWidget {
     this.prefixIcon,
     this.readOnly = false,
   });
-
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool _isPassShown = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,6 +44,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   borderRadius: BorderRadius.circular(20.0),
                   borderSide: BorderSide.none
                 ),
+
                 labelText: widget.title,
                 prefixIcon: widget.prefixIcon,
                 suffixIcon: !widget.isPassField ? null : IconButton(

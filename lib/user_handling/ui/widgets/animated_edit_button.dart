@@ -8,6 +8,7 @@ class AnimatedEditButton extends StatelessWidget {
   final void Function() onEdit;
   final void Function() onSave;
   final void Function() onCancel;
+
   const AnimatedEditButton({
     super.key,
     required this.editClicked,
@@ -38,6 +39,7 @@ class AnimatedEditButton extends StatelessWidget {
             ),
           ),
         ),
+
         Align(
           alignment: Alignment.centerRight,
           child: SubmitFormButton(
