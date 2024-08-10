@@ -1,11 +1,12 @@
 import 'data.dart';
 
+
 class ProudectModel {
   bool? status;
   dynamic message;
   Data? data;
-
   ProudectModel({this.status, this.message, this.data});
+
 
   factory ProudectModel.fromJson(Map<String, dynamic> json) => ProudectModel(
         status: json['status'] as bool?,

@@ -6,6 +6,7 @@ abstract class Failures {
   const Failures(this.errorMessage);
 }
 
+
 class ServerFailure extends Failures {
   ServerFailure(super.errorMessage);
 
@@ -27,14 +28,15 @@ class ServerFailure extends Failures {
       case DioExceptionType.connectionError:
         return ServerFailure('Connection error with ApiServer');
       case DioExceptionType.unknown:
-        // if (dioException.message!.contains('SocketException')) {
-        //   return ServerFailure('No Internet Connection');
-        // }
+      // if (dioException.message!.contains('SocketException')) {
+      //   return ServerFailure('No Internet Connection');
+      // }
         return ServerFailure('Unexpected error, Please try again!');
       default:
         return ServerFailure('Opps there was an error, Please try again');
     }
   }
+
   factory ServerFailure.fromResponse(int statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
       return ServerFailure(response['error']['message']);

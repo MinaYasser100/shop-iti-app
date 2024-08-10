@@ -104,12 +104,15 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
                         height: 20,
                       ),
                       ProfileAvatar(
-                        image: _imagePath == null 
-                          ? null 
-                          : (_imagePath!.startsWith("https://") ? NetworkImage(_imagePath!) : FileImage(File(_imagePath!))),
+                        image: _imagePath == null
+                            ? null
+                            : (_imagePath!.startsWith("https://")
+                            ? NetworkImage(_imagePath!) as ImageProvider<Object>
+                            : FileImage(File(_imagePath!)) as ImageProvider<Object>),
                         onTap: !_updateMode ? null : _onEditProfileAvatar,
                       ),
-                      const SizedBox(
+
+                       const SizedBox(
                         height: 40,
                       ),
                       CustomTextFormField(

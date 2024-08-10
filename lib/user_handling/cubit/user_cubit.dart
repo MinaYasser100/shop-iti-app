@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
@@ -25,7 +24,6 @@ class UserCubit extends Cubit<BaseUserState> {
     emit(NotLoggedInState(
       isLoading: true,
     ));
-
     late final List<int>? imageBytes;
     try {
       imageBytes =
@@ -51,7 +49,6 @@ class UserCubit extends Cubit<BaseUserState> {
       ));
       return;
     }
-
     late final ApiResponse<ActiveUser> regResult;
     try {
       regResult = await UserApi.register(req);
@@ -63,7 +60,6 @@ class UserCubit extends Cubit<BaseUserState> {
       ));
       return;
     }
-
     if (regResult.status) {
       Get.offAndToNamed(GetPages.kLoginView);
       emit(NotLoggedInState(
@@ -81,7 +77,6 @@ class UserCubit extends Cubit<BaseUserState> {
       return;
     }
   }
-
   void login({
     required String email,
     required String password,
@@ -90,7 +85,6 @@ class UserCubit extends Cubit<BaseUserState> {
     emit(NotLoggedInState(
       isLoading: true,
     ));
-
     late final LoginCredintials credintials;
     try {
       credintials = LoginCredintials(
@@ -105,7 +99,6 @@ class UserCubit extends Cubit<BaseUserState> {
       ));
       return;
     }
-
     late final ApiResponse<ActiveUser> loginResult;
     try {
       loginResult = await UserApi.login(credintials);

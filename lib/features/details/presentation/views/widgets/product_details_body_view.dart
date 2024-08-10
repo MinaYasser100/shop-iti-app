@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/features/details/presentation/manager/cart_states_cubit/cart_states_cubit.dart';
@@ -13,6 +14,7 @@ import 'product_details_header_widget.dart';
 class ProductDetailsBodyView extends StatelessWidget {
   const ProductDetailsBodyView({super.key, required this.productItemModel});
   final ProductItemModel productItemModel;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,7 +23,7 @@ class ProductDetailsBodyView extends StatelessWidget {
         child: SingleChildScrollView(
           child: BlocProvider(
             create: (context) =>
-                CartStatesCubit()..determineState(productItemModel),
+            CartStatesCubit()..determineState(productItemModel),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

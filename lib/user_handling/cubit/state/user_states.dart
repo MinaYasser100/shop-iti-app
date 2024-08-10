@@ -21,7 +21,6 @@ abstract class BaseUserState with EquatableMixin{
     _user,
   ];
 }
-
 class NotLoggedInState extends BaseUserState{
   NotLoggedInState({
     super.msg,

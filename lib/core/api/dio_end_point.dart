@@ -1,3 +1,5 @@
+
+
 class DioEndPoint {
   static const dioUrl = 'https://student.valuxapps.com/api/';
   static const dioHome = 'home';
@@ -9,4 +11,5 @@ class DioEndPoint {
   static const dioChangePass = 'change-password';
   static const dioProfile = 'profile';
   static const dioUpdateProfile = 'update-profile';
+
 }

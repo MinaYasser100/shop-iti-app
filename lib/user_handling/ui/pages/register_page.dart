@@ -68,21 +68,22 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(height: 30,),
                     Center(
                       child: ProfileAvatar(
-                        image:
-                            _imagePath == null 
-                              ? null 
-                              : (_imagePath!.startsWith("https://") ? NetworkImage(_imagePath!) : FileImage(File(_imagePath!))),
+                        image: _imagePath == null
+                            ? null
+                            : (_imagePath!.startsWith("https://")
+                            ? NetworkImage(_imagePath!) as ImageProvider<Object>?
+                            : FileImage(File(_imagePath!)) as ImageProvider<Object>?),
                         onTap: () async {
                           final ImagePicker picker = ImagePicker();
-                          final image =
-                              await picker.pickImage(source: ImageSource.gallery);
-          
+                          final image = await picker.pickImage(source: ImageSource.gallery);
+
                           if (image != null) {
                             _imagePath = image.path;
                             setState(() {});
                           }
                         },
                       ),
+
                     ),
                     const SizedBox(
                       height: 15,

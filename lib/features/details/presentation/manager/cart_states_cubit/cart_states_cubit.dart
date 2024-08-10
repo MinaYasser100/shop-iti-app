@@ -1,3 +1,4 @@
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +13,6 @@ import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/carts_model/cart_item.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/carts_model/carts_model.dart';
-
 part 'cart_states_states.dart';
 
 class CartStatesCubit extends Cubit<CartStatesStates> {
@@ -51,7 +51,6 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
       );
     }
   }
-
   Future<void> addOrDeleteProductCartInApi(int productId) async {
     emit(CartStatesAddOrDeleteProductCartInApiLoading());
     try {
@@ -67,7 +66,8 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
           message: response.data['message'],
         ),
       );
-    } catch (e) {
+    }
+    catch (e) {
       if (e is DioException) {
         customSnackBar(
           subTitle: 'Server Error',
@@ -88,6 +88,7 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
       endPoint: DioEndPoint.dioCarts,
       token: ConstantComponents.token,
     );
+
     List<CartItem> cartsProducts = [];
     if (response.statusCode == 200) {
       try {
@@ -100,7 +101,8 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
           }
         }
         emit(CartStatesGetCartProductsSuccess());
-      } catch (e) {
+      }
+      catch (e) {
         if (e is DioException) {
           customSnackBar(
             subTitle: 'Server Error',

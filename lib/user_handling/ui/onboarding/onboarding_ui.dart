@@ -79,7 +79,7 @@ class _OnbordingState extends State<Onbording> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               OnboardingContent.all.length,
-              (index) => buildDot(index, context),
+                  (index) => buildDot(index, context),
             ),
           ),
           Container(
@@ -113,14 +113,13 @@ class _OnbordingState extends State<Onbording> {
       ),
     );
   }
-
   Container buildDot(int index, BuildContext context) => Container(
-        height: 10,
-        width: currentIndex == index ? 25 : 10,
-        margin: const EdgeInsets.only(right: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Theme.of(context).primaryColor,
-        ),
-      );
+    height: 10,
+    width: currentIndex == index ? 25 : 10,
+    margin: const EdgeInsets.only(right: 5),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      color: Theme.of(context).primaryColor,
+    ),
+  );
 }

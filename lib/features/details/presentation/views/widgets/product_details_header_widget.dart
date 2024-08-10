@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
@@ -31,7 +32,7 @@ class ProductDetailsHeaderWidget extends StatelessWidget {
         Text(
           'Details',
           style:
-              Styles.textStyle30.copyWith(color: ConstantComponents.firstColor),
+          Styles.textStyle30.copyWith(color: ConstantComponents.firstColor),
         )
       ],
     );
