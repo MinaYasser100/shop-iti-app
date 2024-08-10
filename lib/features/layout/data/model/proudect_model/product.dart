@@ -1,3 +1,4 @@
+
 import 'package:hive/hive.dart';
 part 'product.g.dart';
 
@@ -37,7 +38,6 @@ class ProductItemModel {
     this.inFavorites,
     this.inCart,
   });
-
   factory ProductItemModel.fromJson(Map<String, dynamic> json) =>
       ProductItemModel(
         id: json['id'] as int?,
