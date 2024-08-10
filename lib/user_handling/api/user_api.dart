@@ -10,6 +10,7 @@ import 'response_model.dart';
 abstract class UserApi{
   const UserApi._();
 
+
   static ApiResponse<T> _getApiRes<T extends Object>(
     Response dioRes, 
     [T Function(JSON json)? dataCallback]
@@ -17,10 +18,10 @@ abstract class UserApi{
     if(dioRes.statusCode != 200){
       throw ApiError.responseFailure;
     }
-
     try{
       return ApiResponse<T>.fromJson(dioRes.data, dataCallback);
-    }catch(e){
+    }
+    catch(e){
       throw ApiError.malformedDataType;
     }
   }
@@ -35,10 +36,8 @@ abstract class UserApi{
     }catch(e){
       throw ApiError.callFailure;
     }
-
     return _getApiRes(dioRes, ActiveUser.fromJson);
   }
-
   static Future<ApiResponse<ActiveUser>> getProfile(String token) async { 
     late final Response dioRes;
     try{
@@ -46,13 +45,13 @@ abstract class UserApi{
         token: token,
         endPoint: DioEndPoint.dioProfile,
       );
-    }catch(e){
+    }
+    catch(e){
       throw ApiError.callFailure;
     }
 
     return _getApiRes(dioRes, ActiveUser.fromJson);
   }
-
   static Future<ApiResponse<ActiveUser>> updateProfile(ActiveUser user, UserProfileDataRequest profileData) async {
     late final Response dioRes;
     try{
@@ -61,23 +60,21 @@ abstract class UserApi{
         endPoint: DioEndPoint.dioUpdateProfile,
         body: profileData.toJson(),
       );
-    }catch(e){
+    }
+    catch(e){
       throw ApiError.callFailure;
     }
 
     return _getApiRes(dioRes, ActiveUser.fromJson);
   }
-
   static Future<ApiResponse<ActiveUser>> register(UserProfileDataRequest registerReq) => _registerOrLogin(
     DioEndPoint.dioRegister,
     registerReq,
   );
-
   static Future<ApiResponse<ActiveUser>> login(LoginCredintials loginCredintials) => _registerOrLogin(
     DioEndPoint.dioLogin,
     loginCredintials,
   );
-  
   static Future<ApiResponse> logout(ActiveUser user) async {
     late final Response dioRes;
     try{
@@ -86,10 +83,10 @@ abstract class UserApi{
         body: {},
         token: user.token,
       );
-    }catch(e){
+    }
+    catch(e){
       throw ApiError.callFailure;
     }
-
     return _getApiRes(dioRes);
   }
 
@@ -107,7 +104,6 @@ abstract class UserApi{
     }catch(e){
       throw ApiError.callFailure;
     }
-    
     return _getApiRes(dioRes);
   }
 }
