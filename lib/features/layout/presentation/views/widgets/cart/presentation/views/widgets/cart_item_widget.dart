@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -19,7 +21,6 @@ class CartItemWidget extends StatelessWidget {
     required this.quantity,
     required this.id,
   });
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -91,6 +92,7 @@ class CartItemWidget extends StatelessWidget {
                       onPressed: () {
                         context.read<CartCubit>().removeProductFromCart(id);
                       },
+
                       icon: const Icon(
                         Icons.delete,
                         color: ConstantComponents.firstColor,

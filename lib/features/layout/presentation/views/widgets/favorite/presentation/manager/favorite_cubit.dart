@@ -1,3 +1,4 @@
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +9,8 @@ import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
 import 'package:shop_iti_app/core/helper/hive_helper.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
-
 part 'favorite_states.dart';
+
 
 class FavoriteCubit extends Cubit<FavortieStates> {
   FavoriteCubit() : super(FavoriteCubitInitial());
