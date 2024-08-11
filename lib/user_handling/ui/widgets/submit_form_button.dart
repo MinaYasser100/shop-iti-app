@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 
@@ -13,7 +14,6 @@ class SubmitFormButton extends StatelessWidget {
     this.bgColor = ConstantComponents.firstColor,
     this.width = double.infinity,
   });
-
   @override
   Widget build(BuildContext context) => InkWell(
     onTap: onTap,
@@ -30,7 +30,7 @@ class SubmitFormButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(18),
         child: Text(
-          title, 
+          title,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 16,

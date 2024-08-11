@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/cart/presentation/manager/cart_cubit.dart';
-
 import 'widgets/cart_body_bloc_consumer.dart';
 
 class CartBodyView extends StatelessWidget {

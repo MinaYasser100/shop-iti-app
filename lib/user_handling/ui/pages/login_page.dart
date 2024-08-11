@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
@@ -6,9 +8,9 @@ import 'package:shop_iti_app/user_handling/ui/widgets/page_title.dart';
 import 'package:shop_iti_app/user_handling/ui/widgets/submit_form_button.dart';
 import 'package:shop_iti_app/user_handling/utils/fields_checks.dart';
 import 'package:shop_iti_app/user_handling/utils/utils.dart';
-
 import '../../../core/constant/constant.dart';
 import '../widgets/custom_text_field.dart';
+
 
 final _gkLoginForm = GlobalKey<FormState>();
 
@@ -18,7 +20,6 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
@@ -29,10 +30,9 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     _emailController.dispose();
     _passController.dispose();
-    
+
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,8 +72,8 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: (){
                       if(_gkLoginForm.currentState?.validate() ?? false){
                         context.read<UserCubit>().login(
-                          email: _emailController.text, 
-                          password: _passController.text, 
+                          email: _emailController.text,
+                          password: _passController.text,
                           rememberMe: _rememberMe,
                         );
                       }
@@ -89,7 +89,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
   Widget _registerQuestion() => Row(
     mainAxisSize: MainAxisSize.min,
     children: [
@@ -108,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
         focusColor: Colors.transparent,
         overlayColor: WidgetStateProperty.all(Colors.transparent),
         child: Text(
-          "Register", 
+          "Register",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: ConstantComponents.firstColor,
@@ -118,7 +117,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     ],
   );
-
   Widget _rememberMeAndForgetPass() => InkWell(
     onTap: () => setState(() => _rememberMe = !_rememberMe,),
     borderRadius: BorderRadius.circular(15),
@@ -139,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Transform.scale(
             scale: 0.75,
             child: Switch(
-              value: _rememberMe, 
+              value: _rememberMe,
               onChanged: (_){},
             ),
           ),

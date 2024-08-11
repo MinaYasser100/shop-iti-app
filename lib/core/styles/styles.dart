@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 
@@ -28,6 +29,7 @@ abstract class Styles {
     fontWeight: FontWeight.w400,
     color: Colors.white,
   );
+
   static const textStyle20 = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,

@@ -16,7 +16,6 @@ class FavProduct {
     this.name,
     this.description,
   });
-
   factory FavProduct.fromJson(Map<String, dynamic> json) => FavProduct(
         id: json['id'] as num?,
         price: json['price'] as num?,
@@ -26,7 +25,6 @@ class FavProduct {
         name: json['name'] as String?,
         description: json['description'] as String?,
       );
-
   Map<String, dynamic> toJson() => {
         'id': id,
         'price': price,

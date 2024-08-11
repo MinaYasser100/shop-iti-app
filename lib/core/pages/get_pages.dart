@@ -19,7 +19,6 @@ abstract class GetPages {
   static String kSettingsView = '/SettingsView';
   static String kProfileDataView = '/ProfileDataView';
   static String kUpdatePasswordView = '/UpdatePasswordView';
-
   static Transition ktransition = Transition.circularReveal;
 
   static List<GetPage<dynamic>> getPages = [
@@ -28,41 +27,49 @@ abstract class GetPages {
       page: () => const Onbording(),
       transition: ktransition,
     ),
+
     GetPage(
       name: kLayoutView,
       page: () => const LayoutView(),
       transition: ktransition,
     ),
+
     GetPage(
       name: kProductDetails,
       page: () => const ProductDetailsView(),
       transition: ktransition,
     ),
+
     GetPage(
       name: kSearchView,
       page: () => const SearchView(),
       transition: ktransition,
     ),
+
     GetPage(
       name: kLoginView,
       page: () => const LoginPage(),
       transition: ktransition,
     ),
+
     GetPage(
       name: kRegisterView,
       page: () => const RegisterPage(),
       transition: ktransition,
     ),
+
     GetPage(
       name: kSettingsView,
       page: () => const SettingsPage(),
       transition: ktransition,
     ),
+
     GetPage(
       name: kProfileDataView,
       page: () => const ProfileDataPage(),
       transition: ktransition,
     ),
+
     GetPage(
       name: kUpdatePasswordView,
       page: () => const UpdatePasswordPage(),

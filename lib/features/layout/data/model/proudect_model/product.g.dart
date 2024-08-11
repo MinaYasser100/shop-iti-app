@@ -1,7 +1,6 @@
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
-
 part of 'product.dart';
-
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
@@ -62,7 +61,7 @@ class ProductItemModelAdapter extends TypeAdapter<ProductItemModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ProductItemModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+          other is ProductItemModelAdapter &&
+              runtimeType == other.runtimeType &&
+              typeId == other.typeId;
 }

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:shop_iti_app/core/constant/constant.dart';
 import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
@@ -5,7 +6,6 @@ import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
 import 'package:shop_iti_app/user_handling/utils/loading_page.dart';
 
 typedef JSON = Map<String, dynamic>;
-
 mixin Jsonable {
   JSON toJson();
 }
@@ -16,7 +16,6 @@ void userCubitListner(BuildContext context, BaseUserState state) {
   } else {
     LoadingScreen().forcedHide();
   }
-
   if (state.msg != null && state.isErrorMsg != null) {
     customSnackBar(
       text: state.isErrorMsg == false ? "Succeded" : "Error",
@@ -25,7 +24,6 @@ void userCubitListner(BuildContext context, BaseUserState state) {
           ? Colors.redAccent.shade700
           : ConstantComponents.firstColor,
     );
-
     state.isErrorMsg = null;
     state.msg = null;
   }

@@ -1,5 +1,6 @@
-import 'dart:io';
 
+
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,9 +14,9 @@ import 'package:shop_iti_app/user_handling/utils/utils.dart';
 
 final _gkProfileDataForm = GlobalKey<FormState>();
 
+
 class ProfileDataPage extends StatefulWidget {
   const ProfileDataPage({super.key});
-
   @override
   State<ProfileDataPage> createState() => _ProfileDataPageState();
 }
@@ -34,14 +35,12 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
       return false;
     }
   }
-
   @override
   void initState() {
     super.initState();
 
     _updateFromCubit(context);
   }
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -50,7 +49,6 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
 
     super.dispose();
   }
-
   void _onEditProfileAvatar() async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
@@ -60,7 +58,6 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
       setState(() {});
     }
   }
-
   void _updateFromCubit(BuildContext context) {
     final state = context.read<UserCubit>().state;
     if (state is InUpdateProfilePageState) {
@@ -71,7 +68,6 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
       setState(() {});
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -82,9 +78,9 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-                  backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
         ),
         body: BlocListener<UserCubit, BaseUserState>(
           listener: (context, state) {
@@ -104,11 +100,14 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
                         height: 20,
                       ),
                       ProfileAvatar(
-                        image: _imagePath == null 
-                          ? null 
-                          : (_imagePath!.startsWith("https://") ? NetworkImage(_imagePath!) : FileImage(File(_imagePath!))),
+                        image: _imagePath == null
+                            ? null
+                            : (_imagePath!.startsWith("https://")
+                            ? NetworkImage(_imagePath!) as ImageProvider<Object>
+                            : FileImage(File(_imagePath!)) as ImageProvider<Object>),
                         onTap: !_updateMode ? null : _onEditProfileAvatar,
                       ),
+
                       const SizedBox(
                         height: 40,
                       ),
@@ -139,9 +138,9 @@ class _ProfileDataPageState extends State<ProfileDataPage> {
                         onSave: (){
                           if (_gkProfileDataForm.currentState?.validate() ?? false) {
                             context.read<UserCubit>().updateProfile(
-                              name: _nameController.text, 
-                              email: _emailController.text, 
-                              phoneNum: _phoneNumController.text, 
+                              name: _nameController.text,
+                              email: _emailController.text,
+                              phoneNum: _phoneNumController.text,
                               imagePath: _imagePath,
                             );
                             _gkProfileDataForm.currentState?.reset();

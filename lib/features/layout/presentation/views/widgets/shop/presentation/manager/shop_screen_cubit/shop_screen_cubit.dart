@@ -1,3 +1,4 @@
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,7 @@ import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/dat
 import 'package:shop_iti_app/features/layout/presentation/views/widgets/shop/data/model/favorite_model/favorite_model.dart';
 
 part 'shop_screen_state.dart';
+
 
 class ShopScreenCubit extends Cubit<ShopScreenState> {
   ShopScreenCubit() : super(ShopScreenInitial());

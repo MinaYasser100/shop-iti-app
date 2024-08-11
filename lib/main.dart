@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,6 @@ import 'package:shop_iti_app/core/pages/get_pages.dart';
 import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
 import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
 import 'package:shop_iti_app/user_handling/cubit/user_cubit.dart';
-
 import 'features/layout/presentation/views/widgets/shop/presentation/manager/shop_screen_cubit/shop_screen_cubit.dart';
 
 late final bool _showOnboarding;
@@ -26,7 +26,6 @@ void main() async {
 
   runApp(const MyApp());
 }
-
 String _getInitialRoute() {
   if (_showOnboarding) {
     return GetPages.kOnboardingView;
@@ -36,10 +35,8 @@ String _getInitialRoute() {
     return GetPages.kLayoutView;
   }
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -58,7 +55,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: ConstantComponents.secondColor,
           colorScheme:
-              ColorScheme.fromSeed(seedColor: ConstantComponents.firstColor),
+          ColorScheme.fromSeed(seedColor: ConstantComponents.firstColor),
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,

@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_iti_app/core/func/custom_snack_bar.dart';
@@ -11,7 +13,6 @@ class CartBodyBlocConsumer extends StatelessWidget {
   const CartBodyBlocConsumer({
     super.key,
   });
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CartCubit, CartStates>(listener: (context, state) {
@@ -21,29 +22,31 @@ class CartBodyBlocConsumer extends StatelessWidget {
           text: 'Remove From Cart',
         );
       }
-    }, builder: (context, state) {
-      if (State is CartCubitGetCartDataLoading) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      } else if (state is CartCubitGetCartDataFailure) {
-        return const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'An error occurred while fetching data',
-              style: Styles.textStyle20Failure,
-            ),
-          ],
-        );
-      } else {
-        return context.read<CartCubit>().cartproduct.isNotEmpty
-            ? const CartListViewbuilderWidget()
-            : const EmptyListWidget(
-                icon: Icons.shopping_bag,
-                text: 'No Products items in cart',
-              );
-      }
-    });
+    },
+        builder: (context, state) {
+          if (State is CartCubitGetCartDataLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else
+          if (state is CartCubitGetCartDataFailure) {
+            return const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'An error occurred while fetching data',
+                  style: Styles.textStyle20Failure,
+                ),
+              ],
+            );
+          } else {
+            return context.read<CartCubit>().cartproduct.isNotEmpty
+                ? const CartListViewbuilderWidget()
+                : const EmptyListWidget(
+              icon: Icons.shopping_bag,
+              text: 'No Products items in cart',
+            );
+          }
+        });
   }
 }

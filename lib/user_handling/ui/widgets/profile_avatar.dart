@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class ProfileAvatar extends StatefulWidget {
@@ -10,11 +11,9 @@ class ProfileAvatar extends StatefulWidget {
     this.onTap,
     this.radius = 80,
   });
-
   @override
   State<ProfileAvatar> createState() => _ProfileAvatarState();
 }
-
 class _ProfileAvatarState extends State<ProfileAvatar> {
   bool _hovered = false;
 
@@ -29,20 +28,20 @@ class _ProfileAvatarState extends State<ProfileAvatar> {
         ClipOval(
           child: CircleAvatar(
             radius: widget.radius,
-            child: widget.image == null 
-              ? Icon(
-                Icons.person, 
-                size: widget.radius * (150 / 80),
-                color: Colors.white,
-              )
-              : Image(
-                image: widget.image!,
-                errorBuilder: (context, _, __) => Icon(
-                  Icons.broken_image, 
-                  size: widget.radius,
-                  color: Colors.red,
-                ),
+            child: widget.image == null
+                ? Icon(
+              Icons.person,
+              size: widget.radius * (150 / 80),
+              color: Colors.white,
+            )
+                : Image(
+              image: widget.image!,
+              errorBuilder: (context, _, __) => Icon(
+                Icons.broken_image,
+                size: widget.radius,
+                color: Colors.red,
               ),
+            ),
           ),
         ),
         if(_hovered) CircleAvatar(

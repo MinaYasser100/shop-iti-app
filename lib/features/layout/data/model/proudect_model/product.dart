@@ -1,5 +1,5 @@
-import 'package:hive/hive.dart';
 
+import 'package:hive/hive.dart';
 part 'product.g.dart';
 
 @HiveType(typeId: 0)
@@ -25,6 +25,7 @@ class ProductItemModel {
   @HiveField(9)
   bool? inCart;
 
+
   ProductItemModel({
     this.id,
     this.price,
@@ -37,7 +38,6 @@ class ProductItemModel {
     this.inFavorites,
     this.inCart,
   });
-
   factory ProductItemModel.fromJson(Map<String, dynamic> json) =>
       ProductItemModel(
         id: json['id'] as int?,
@@ -53,15 +53,15 @@ class ProductItemModel {
       );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'price': price,
-        'old_price': oldPrice,
-        'discount': discount,
-        'image': image,
-        'name': name,
-        'description': description,
-        'images': images,
-        'in_favorites': inFavorites,
-        'in_cart': inCart,
-      };
+    'id': id,
+    'price': price,
+    'old_price': oldPrice,
+    'discount': discount,
+    'image': image,
+    'name': name,
+    'description': description,
+    'images': images,
+    'in_favorites': inFavorites,
+    'in_cart': inCart,
+  };
 }

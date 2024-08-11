@@ -1,3 +1,4 @@
+
 import 'datum.dart';
 
 class FavData {
@@ -28,7 +29,6 @@ class FavData {
     this.to,
     this.total,
   });
-
   factory FavData.fromJson(Map<String, dynamic> json) => FavData(
         currentPage: json['current_page'] as num?,
         data: (json['data'] as List<dynamic>?)
@@ -45,7 +45,6 @@ class FavData {
         to: json['to'] as num?,
         total: json['total'] as num?,
       );
-
   Map<String, dynamic> toJson() => {
         'current_page': currentPage,
         'data': data?.map((e) => e.toJson()).toList(),

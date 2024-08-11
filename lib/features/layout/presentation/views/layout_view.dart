@@ -1,8 +1,9 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shop_iti_app/features/layout/presentation/manager/layout_cubit/layout_screen_cubit.dart';
-
 import 'widgets/layout_widget/bottom_navigation_bar_widget.dart';
 
 class LayoutView extends StatelessWidget {

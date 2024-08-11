@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 Text nameProductMehtod(String productName) {
@@ -5,10 +6,12 @@ Text nameProductMehtod(String productName) {
     productName,
     maxLines: 6,
     overflow: TextOverflow.ellipsis,
-    style: const TextStyle(
+    style:
+    const TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w500,
     ),
     textAlign: TextAlign.center,
+
   );
 }

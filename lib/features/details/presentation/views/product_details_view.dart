@@ -1,7 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_iti_app/features/layout/data/model/proudect_model/product.dart';
-
 import 'widgets/product_details_body_view.dart';
 
 class ProductDetailsView extends StatelessWidget {
@@ -11,9 +11,7 @@ class ProductDetailsView extends StatelessWidget {
     final ProductItemModel productItemModel = Get.arguments;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ProductDetailsBodyView(
-        productItemModel: productItemModel,
-      ),
+      body: ProductDetailsBodyView(productItemModel: productItemModel,),
     );
   }
 }

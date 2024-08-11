@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
@@ -28,7 +29,8 @@ class CartCubit extends Cubit<CartStates> {
       // }
       cartproduct = HiveHelper.getCartProducts();
       emit(CartCubitGetCartDataSuccess());
-    } catch (e) {
+    }
+    catch (e) {
       if (e is DioException) {
         customSnackBar(
           subTitle: ServerFailure.fromDioException(e).errorMessage,
@@ -39,7 +41,6 @@ class CartCubit extends Cubit<CartStates> {
       emit(CartCubitGetCartDataFailure());
     }
   }
-
   void removeProductFromCart(productId) async {
     emit(CartCubitRemoveProductFromCartLoading());
     try {

@@ -1,3 +1,5 @@
+
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +53,6 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
       );
     }
   }
-
   Future<void> addOrDeleteProductCartInApi(int productId) async {
     emit(CartStatesAddOrDeleteProductCartInApiLoading());
     try {
@@ -67,7 +68,8 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
           message: response.data['message'],
         ),
       );
-    } catch (e) {
+    }
+    catch (e) {
       if (e is DioException) {
         customSnackBar(
           subTitle: 'Server Error',
@@ -81,7 +83,6 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
       );
     }
   }
-
   Future<void> getCartProducts() async {
     emit(CartStatesGetCartProductsLoading());
     Response response = await DioApi.getData(
@@ -100,7 +101,8 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
           }
         }
         emit(CartStatesGetCartProductsSuccess());
-      } catch (e) {
+      }
+      catch (e) {
         if (e is DioException) {
           customSnackBar(
             subTitle: 'Server Error',
@@ -112,7 +114,6 @@ class CartStatesCubit extends Cubit<CartStatesStates> {
       }
     }
   }
-
   bool determineState(ProductItemModel product) {
     List<CartItem> list = HiveHelper.getCartProducts();
     if (list.isNotEmpty) {

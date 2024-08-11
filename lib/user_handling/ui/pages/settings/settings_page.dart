@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,7 @@ import 'package:shop_iti_app/user_handling/cubit/state/user_states.dart';
 import 'package:shop_iti_app/user_handling/ui/widgets/profile_avatar.dart';
 import 'package:shop_iti_app/user_handling/ui/widgets/submit_form_button.dart';
 import 'package:shop_iti_app/user_handling/utils/utils.dart';
+
 
 const _listTileShape = RoundedRectangleBorder(
   borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -79,7 +82,6 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
-
   Widget _avatarAndName() {
     return Center(
       child: Padding(
@@ -89,7 +91,7 @@ class SettingsPage extends StatelessWidget {
           children: [
             BlocBuilder<UserCubit, BaseUserState>(
               buildWhen: (previous, current) =>
-                  current is LoggedInState &&
+              current is LoggedInState &&
                   previous is LoggedInState &&
                   current.user.imageUrl != previous.user.imageUrl,
               builder: (context, state) => ProfileAvatar(
@@ -103,18 +105,18 @@ class SettingsPage extends StatelessWidget {
             ),
             BlocBuilder<UserCubit, BaseUserState>(
               buildWhen: (previous, current) =>
-                  current is LoggedInState &&
+              current is LoggedInState &&
                   previous is LoggedInState &&
                   current.user.name != previous.user.name,
               builder: (context, state) => state is! LoggedInState
                   ? const SizedBox.shrink()
                   : Text(
-                      state.user.name,
-                      style: const TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
+                state.user.name,
+                style: const TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
             ),
           ],
         ),

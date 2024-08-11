@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,6 @@ class _LoadingScreenController {
     required this.update,
   });
 }
-
 class LoadingScreen {
   BuildContext? _context;
   String Function(BuildContext context) textCallback = (_) => "Loading...";
@@ -170,7 +170,6 @@ class LoadingScreen {
   }
 }
 
-
 class ChangeWithInertia<T>{
   final double defaultInertia;
   Duration _inertiaUnitDuration;
@@ -179,12 +178,10 @@ class ChangeWithInertia<T>{
 
   T _current;
   T get currentValue => _current;
-
   T? _requestedValue;
   Timer? _request;
 
   final _notifier = ValueNotifier<bool>(false);
-
 
   ChangeWithInertia({
     required T initialValue,
@@ -204,9 +201,7 @@ class ChangeWithInertia<T>{
       _requestedValue = null;
       return;
     }
-
     _request?.cancel();
-
     _requestedValue = newValue;
     _request = Timer(_getValueDuration(_current), (){
       _current = _requestedValue as T;
@@ -215,7 +210,6 @@ class ChangeWithInertia<T>{
       _notify();
     });
   }
-
   void forcedChange(T newValue, [bool alwaysNotify = false]){
     _request?.cancel();
     _request = null;
@@ -226,7 +220,6 @@ class ChangeWithInertia<T>{
 
     if(alwaysNotify || !wasEqual) {_notify();}
   }
-
   void addListener(void Function() listener) => _notifier.addListener(listener);
 
   void removeListener(void Function() listener) => _notifier.removeListener(listener);
